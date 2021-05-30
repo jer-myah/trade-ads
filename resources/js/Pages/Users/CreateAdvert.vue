@@ -143,7 +143,7 @@
 </template>
 
 <script>
-import Layout from '@/Layouts/AdminLayout'
+import Layout from '@/Layouts/Authenticated'
 import Button from '@/Components/Button'
 import Input from '@/Components/Input'
 import Label from '@/Components/Label'
