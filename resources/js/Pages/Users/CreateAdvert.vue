@@ -2,7 +2,7 @@
     <div>
         
         <Layout>
-            <div class="w-full py-6">
+            <!-- <div class="w-full py-6">
                 <div class="flex">
                     <div class="w-1/4">
                         <div class="relative mb-2">
@@ -15,7 +15,7 @@
                             </div>
                         </div>
 
-                        <div class="text-xs text-center md:text-base">About Advert</div>
+                        <div class="text-xs text-center md:text-base">Advert</div>
                         </div>
 
                         <div class="w-1/4">
@@ -35,7 +35,7 @@
                                 </div>
                             </div>
 
-                            <div class="text-xs text-center md:text-base">Conference Details</div>
+                            <div class="text-xs text-center md:text-base">Advert Details</div>
                         </div>
 
                     <div class="w-1/4">
@@ -55,7 +55,7 @@
                             </div>
                         </div>
 
-                        <div class="text-xs text-center md:text-base">Upload Media</div>
+                        <div class="text-xs text-center md:text-base">Advert Media</div>
                         </div>
 
                     <div class="w-1/4">
@@ -78,7 +78,7 @@
                         <div class="text-xs text-center md:text-base">Publish</div>
                     </div>
                 </div>
-            </div>
+            </div> -->
 
 
             <!-- This example requires Tailwind CSS v2.0+ -->
@@ -86,14 +86,20 @@
                 
                 <div class="w-10/12 mx-auto pb-8 pt-5 bg-gray-200 shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
                     <div class="w-4/5 mx-auto py-5">
-                        <Label class="uppercase font-bold font-sans text-xl text-gray-100" value="Create Conference" />
+                        <Label class="uppercase font-bold font-sans text-xl text-gray-100" value="Create Advert" />
                     </div>
 
                     <div class="my-5 border-b border-gray-300"></div>
 
                     <form @submit.prevent="submit" class="w-3/5 mx-auto py-5">
+
                         <div>
-                            <Label for="title" value="Event Title" />
+                            <button class="relative rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                                x-cloak> </button>
+                        </div>
+
+                        <div>
+                            <Label for="title" value="Advert Title" />
                             <Input id="title" type="text" class="mt-1 block w-full" v-model="form.title" required autofocus autocomplete="title" />
                         </div>
 
@@ -102,25 +108,25 @@
                             <Input id="description" type="text" class="mt-1 block w-full" v-model="form.description" required autocomplete="description" />
                         </div>
 
-                        <div class="mt-4">
-                            <Label for="sub_theme" value="Sub-Theme" />
+                        <!-- <div class="mt-4">
+                            <Label for="sub_theme" value="" />
                             <Input id="sub_theme" type="text" class="mt-1 block w-full" v-model="form.sub_theme" required autocomplete="sub_theme" />
-                        </div>
+                        </div> -->
 
-                        <div class="mt-4">
+                        <!-- <div class="mt-4">
                             <Label for="focus" value="Focus" />
                             <Input id="focus" type="text" class="mt-1 block w-full" v-model="form.focus" required autocomplete="focus" />
-                        </div>
+                        </div> -->
 
-                        <div class="mt-4">
+                        <!-- <div class="mt-4">
                             <Label for="venue" value="Venue" />
                             <Input id="venue" type="text" class="mt-1 block w-full" v-model="form.venue" required autocomplete="venue" />
-                        </div> 
+                        </div>  -->
 
-                        <div class="mt-4">
+                        <!-- <div class="mt-4">
                             <Label for="email" value="Contact Email" />
                             <Input id="email" type="text" class="mt-1 block w-full" v-model="form.email" required autocomplete="email" />
-                        </div> 
+                        </div>  -->
 
                         <div class="mt-4">
                             <Label for="phone" value="Contact Phone Number" />
@@ -131,7 +137,7 @@
 
                         <div class="flex items-center justify-center mt-4">                            
                             <Button class="w-full" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                                <span class="w-11/12 mx-auto">Proceed</span>
+                                <span class="w-11/12 mx-auto">Place Advert</span>
                             </Button>
                         </div>
                     </form>
@@ -161,21 +167,20 @@ export default {
     data() {
             return {
                 form: this.$inertia.form({
+                    package: '',
+                    category: '',
                     title: '',
                     description: '',
-                    sub_theme: '',
-                    focus: '',
-                })
+                    phone: '',
+                    image: ''
+                }),
+                
             }
         },
 
         methods: {
             submit() {
-                localStorage.setItem('title', this.form.title)
-                localStorage.setItem('description', this.form.description)
-                localStorage.setItem('sub_theme', this.form.sub_theme)
-                localStorage.setItem('focus', this.form.focus)
-                this.$inertia.post('/user/place-advert');
+                this.$inertia.post('/user/place-advert', this.form);
             }
         }
 }
