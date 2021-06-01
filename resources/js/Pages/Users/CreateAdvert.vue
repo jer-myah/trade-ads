@@ -92,13 +92,8 @@
                     <div class="my-5 border-b border-gray-300"></div>
 
                     <form @submit.prevent="submit" class="w-3/5 mx-auto py-5">
-
-                        <div>
-                            <button class="relative rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                                x-cloak> </button>
-                        </div>
-
-                        <div>
+                    
+                        <div class="mt-4">
                             <Label for="title" value="Advert Title" />
                             <Input id="title" type="text" class="mt-1 block w-full" v-model="form.title" required autofocus autocomplete="title" />
                         </div>
@@ -162,6 +157,11 @@ export default {
         Input,
         Label,
         ValidationErrors,
+    },
+
+    props: {
+        packages: Object,
+        categories: Object,
     },
 
     data() {

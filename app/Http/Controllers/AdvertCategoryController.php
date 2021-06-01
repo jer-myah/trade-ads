@@ -16,8 +16,9 @@ class AdvertCategoryController extends Controller
      */
     public function index()
     {
-        $categories = AdvertCategory::get();
-        return Inertia::render('Admin/Categories/Index', ['categories' => $categories]);
+        $categories = AdvertCategory::where('status', true)->get();
+        $packages = AdvertPackage::where('status', true)->get();
+        return Inertia::render('Admin/Categories/Index', ['categories' => $categories, 'packages' => $packages]);
     }
 
     /**

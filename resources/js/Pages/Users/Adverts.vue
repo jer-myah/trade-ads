@@ -11,7 +11,7 @@
                             </p>
                         </div>
                         <div class="order-3 mt-2 flex-shrink-0 w-full sm:order-2 sm:mt-0 sm:w-auto">
-                            <a href="/user/place-advert" class="flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-green-600 bg-white hover:bg-green-50">
+                            <a href="/user/place-advert" :class="balance > 0 ? enable : disable " class="flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-green-600 bg-white hover:bg-green-50">
                             New Advert
                             </a>
                         </div>
@@ -28,10 +28,10 @@
                                 <thead class="bg-gray-50">
                                     <tr>
                                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        Name
+                                        Title
                                     </th>
                                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        Title
+                                        Description
                                     </th>
                                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                         Status
@@ -96,6 +96,15 @@ import Layout from '@/Layouts/Authenticated'
 export default {
     components: {
         Layout,
+    }, 
+    data(){
+        return {
+            balance: 0
+        }
+    },
+    props: {
+        categories: Object,
+        packages: Object
     }
 }
 </script>
