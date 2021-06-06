@@ -32,6 +32,8 @@ Route::get('/how-it-works', function () {
 Route::post('/register-trader', [App\Http\Controllers\GeneralController::class, 'store']);
 // Route::get('/thank', function () { return Inertia::render('ThankYou'); });
 
+Route::get('/blockonomics', [App\Http\Controllers\BitcoinPaymentController::class, 'store']);
+
 
 // user routes
 Route::group(['middleware' => ['auth', 'verified', 'isuser']], function () {

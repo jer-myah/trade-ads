@@ -29,12 +29,12 @@
                     </label>
                 </div>
 
-                <div class="flex items-center justify-end mt-4">
+                <div class="flex sm:flex-col md:flex-row items-center justify-end mt-4">
                     <inertia-link v-if="canResetPassword" :href="route('password.request')" class="underline text-sm text-gray-600 hover:text-gray-900">
                         Forgot your password?
                     </inertia-link>
 
-                    <breeze-button class="ml-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
+                    <breeze-button class="ml-4 whitespace-nowrap" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
                         Log in
                     </breeze-button>
                 </div>

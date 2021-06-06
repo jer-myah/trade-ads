@@ -21,4 +21,6 @@
         <div id="modal"></div>
         @inertia
     </body>
+
+    <script src="https://blockonomics.co/js/pay_button.js"></script>
 </html>
