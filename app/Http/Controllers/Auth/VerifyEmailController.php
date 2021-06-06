@@ -18,7 +18,7 @@ class VerifyEmailController extends Controller
     public function __invoke(EmailVerificationRequest $request)
     {
         if ($request->user()->hasVerifiedEmail()) {
-            switch($request->user->role){
+            switch($request->user()->role){
                 case('user'): return redirect()->intended(RouteServiceProvider::HOME.'?verified=1');
                     break;
                 case('voluntary-trader'): return redirect()->intended(RouteServiceProvider::VOLUNTARYTRADER.'?verified=1');
@@ -37,7 +37,7 @@ class VerifyEmailController extends Controller
         }
 
         // return redirect()->intended(RouteServiceProvider::HOME.'?verified=1');
-        switch($request->user->role){
+        switch($request->user()->role){
             case('user'): return redirect()->intended(RouteServiceProvider::HOME.'?verified=1');
                 break;
             case('voluntary-trader'): return redirect()->intended(RouteServiceProvider::VOLUNTARYTRADER.'?verified=1');
