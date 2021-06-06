@@ -33,7 +33,6 @@ Route::post('/register-trader', [App\Http\Controllers\GeneralController::class, 
 // Route::get('/thank', function () { return Inertia::render('ThankYou'); });
 
 
-
 // user routes
 Route::group(['middleware' => ['auth', 'verified', 'isuser']], function () {
     Route::get('/dashboard', function () {

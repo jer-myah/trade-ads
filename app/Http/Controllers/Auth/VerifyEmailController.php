@@ -18,13 +18,35 @@ class VerifyEmailController extends Controller
     public function __invoke(EmailVerificationRequest $request)
     {
         if ($request->user()->hasVerifiedEmail()) {
-            return redirect()->intended(RouteServiceProvider::HOME.'?verified=1');
+            switch($request->user->role){
+                case('user'): return redirect()->intended(RouteServiceProvider::HOME.'?verified=1');
+                    break;
+                case('voluntary-trader'): return redirect()->intended(RouteServiceProvider::VOLUNTARYTRADER.'?verified=1');
+                    break;
+                case('top-trader'): return redirect()->intended(RouteServiceProvider::TOPTRADER.'?verified=1');
+                    break;
+                case('administrator'): return redirect()->intended(RouteServiceProvider::SUPERADMINISTRATOR.'?verified=1');
+                    break;
+                default: return redirect()->back();
+            }
+            
         }
 
         if ($request->user()->markEmailAsVerified()) {
             event(new Verified($request->user()));
         }
 
-        return redirect()->intended(RouteServiceProvider::HOME.'?verified=1');
+        // return redirect()->intended(RouteServiceProvider::HOME.'?verified=1');
+        switch($request->user->role){
+            case('user'): return redirect()->intended(RouteServiceProvider::HOME.'?verified=1');
+                break;
+            case('voluntary-trader'): return redirect()->intended(RouteServiceProvider::VOLUNTARYTRADER.'?verified=1');
+                break;
+            case('top-trader'): return redirect()->intended(RouteServiceProvider::TOPTRADER.'?verified=1');
+                break;
+            case('administrator'): return redirect()->intended(RouteServiceProvider::SUPERADMINISTRATOR.'?verified=1');
+                break;
+            default: return redirect()->back();
+        }
     }
 }
