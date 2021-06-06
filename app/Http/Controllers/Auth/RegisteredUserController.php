@@ -10,10 +10,15 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
+use Illuminate\Support\Facades\Mail;
 use Inertia\Inertia;
 
 class RegisteredUserController extends Controller
 {
+
+    
+
+
     /**
      * Display the registration view.
      *
@@ -41,11 +46,13 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
+        
         $user = User::create([
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'role' => $request->role,
         ]);
 
         event(new Registered($user));
@@ -53,6 +60,9 @@ class RegisteredUserController extends Controller
         Auth::login($user);
         
         return redirect(RouteServiceProvider::HOME);
+
+
+        // return Inertia::render('ThankYou', ['message' => 'Thank you!']);
         
     }
 }

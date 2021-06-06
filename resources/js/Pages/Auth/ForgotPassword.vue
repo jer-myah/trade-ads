@@ -1,26 +1,32 @@
 <template>
-    <div class="mb-4 text-sm text-gray-600">
-        Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.
-    </div>
+    <bg-img>
+        <div class="w-full mx-auto sm:w-11/12 md:w-8/12 lg:w-1/2 max-w-xl py-16">
+            <div class="mx-8 px-8 py-8 bg-gray-50 bg-opacity-90 rounded shadow-md">
+                <div class="mb-4 text-sm text-gray-600">
+                    Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.
+                </div>
 
-    <div v-if="status" class="mb-4 font-medium text-sm text-green-600">
-        {{ status }}
-    </div>
+                <div v-if="status" class="mb-4 font-medium text-sm text-green-600">
+                    {{ status }}
+                </div>
 
-    <breeze-validation-errors class="mb-4" />
+                <breeze-validation-errors class="mb-4" />
 
-    <form @submit.prevent="submit">
-        <div>
-            <breeze-label for="email" value="Email" />
-            <breeze-input id="email" type="email" class="mt-1 block w-full" v-model="form.email" required autofocus autocomplete="username" />
+                <form @submit.prevent="submit">
+                    <div>
+                        <breeze-label for="email" value="Email" />
+                        <breeze-input id="email" type="email" class="mt-1 block w-full" v-model="form.email" required autofocus autocomplete="username" />
+                    </div>
+
+                    <div class="flex items-center justify-end mt-4">
+                        <breeze-button :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
+                            Email Password Reset Link
+                        </breeze-button>
+                    </div>
+                </form>
+            </div>
         </div>
-
-        <div class="flex items-center justify-end mt-4">
-            <breeze-button :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                Email Password Reset Link
-            </breeze-button>
-        </div>
-    </form>
+    </bg-img>
 </template>
 
 <script>
@@ -29,6 +35,7 @@
     import BreezeInput from '@/Components/Input'
     import BreezeLabel from '@/Components/Label'
     import BreezeValidationErrors from '@/Components/ValidationErrors'
+    import BgImg from '@/Components/Background'
 
     export default {
         layout: BreezeGuestLayout,
@@ -38,6 +45,7 @@
             BreezeInput,
             BreezeLabel,
             BreezeValidationErrors,
+            BgImg
         },
 
         props: {

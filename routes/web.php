@@ -2,6 +2,7 @@
 
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 use App\Models\User;
 
@@ -25,6 +26,12 @@ Route::get('/', function () {
     ]);
 });
 
+Route::get('/how-it-works', function () {
+    return Inertia::render('About');
+});
+Route::post('/register-trader', [App\Http\Controllers\GeneralController::class, 'store']);
+// Route::get('/thank', function () { return Inertia::render('ThankYou'); });
+
 
 
 // user routes
@@ -35,6 +42,10 @@ Route::group(['middleware' => ['auth', 'verified', 'isuser']], function () {
 
     Route::get('/user-adverts', function () {
         return Inertia::render('Users/Adverts');
+    });
+
+    Route::get('/user-account-information', function () {
+        return Inertia::render('Users/AccountInformation');
     });
 
     Route::get('/user/place-advert', function ()
@@ -88,6 +99,5 @@ Route::group(['middleware' => ['auth', 'verified', 'isadmin']], function () {
     Route::get('/admin/delete-package/{id}', ['App\Http\Controllers\AdvertPackageController', 'destroy']);
 });
     
-
 
 require __DIR__.'/auth.php';
