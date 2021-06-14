@@ -16,7 +16,7 @@
                 </div>
             </div>
             <ul class="space-y-2 text-sm">
-                <li>
+                <li class="transition ease-out duration-200 transform hover:scale-110">
                     <a href="/admin-dashboard" class="flex items-center space-x-3 text-gray-700 p-2 rounded-md font-medium hover:bg-gray-200 bg-gray-200 focus:shadow-outline">
                         <span class="text-gray-600">
                             <svg class="h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -26,7 +26,7 @@
                         <span>Dashboard</span>
                     </a>
                 </li> 
-                <li>
+                <li class="transition ease-out duration-200 transform hover:scale-110">
                     <a href="/admin/view-users" class="flex items-center space-x-3 text-gray-700 p-2 rounded-md font-medium hover:bg-gray-200 focus:bg-gray-200 focus:shadow-outline">
                         <span class="text-gray-600">
                             <svg class="h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -36,7 +36,7 @@
                         <span>Users </span>
                     </a>
                 </li>
-                <li>
+                <li class="transition ease-out duration-200 transform hover:scale-110">
                     <a href="/admin/view-categories" class="flex items-center space-x-3 text-gray-700 p-2 rounded-md font-medium hover:bg-gray-200 focus:bg-gray-200 focus:shadow-outline">
                         <span class="text-gray-600">
                             <svg class="h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -46,7 +46,7 @@
                         <span>Categories </span>
                     </a>
                 </li>
-                <li>
+                <li class="transition ease-out duration-200 transform hover:scale-110">
                     <a href="/admin/view-packages" class="flex items-center space-x-3 text-gray-700 p-2 rounded-md font-medium hover:bg-gray-200 focus:bg-gray-200 focus:shadow-outline">
                         <span class="text-gray-600">
                             <svg class="h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -56,7 +56,7 @@
                         <span>Packages Plan</span>
                     </a>
                 </li>
-                <li>
+                <li class="transition ease-out duration-200 transform hover:scale-110">
                     <a href="/admin-adverts" class="flex items-center space-x-3 text-gray-700 p-2 rounded-md font-medium hover:bg-gray-200 focus:bg-gray-200 focus:shadow-outline">
                         <span class="text-gray-600">
                             <svg class="h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -66,7 +66,7 @@
                         <span>Adverts </span>
                     </a>
                 </li>
-                <li>
+                <li class="transition ease-out duration-200 transform hover:scale-110">
                     <a href="/admin-links" class="flex items-center space-x-3 text-gray-700 p-2 rounded-md font-medium hover:bg-gray-200 focus:bg-gray-200 focus:shadow-outline">
                         <span class="text-gray-600">
                             <svg class="h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -76,7 +76,7 @@
                         <span>Links</span>
                     </a>
                 </li>
-                <li>
+                <li class="transition ease-out duration-200 transform hover:scale-110">
                     <a href="#" class="flex items-center space-x-3 text-gray-700 p-2 rounded-md font-medium hover:bg-gray-200 focus:bg-gray-200 focus:shadow-outline">
                         <span class="text-gray-600">
                             <svg class="h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -86,17 +86,17 @@
                         <span>Registration</span>
                     </a>
                 </li>
-                <li>
-                    <a href="#" class="flex items-center space-x-3 text-gray-700 p-2 rounded-md font-medium hover:bg-gray-200 focus:bg-gray-200 focus:shadow-outline">
+                <li class="transition ease-out duration-200 transform hover:scale-110">
+                    <a href="/admin/payments" class="flex items-center space-x-3 text-gray-700 p-2 rounded-md font-medium hover:bg-gray-200 focus:bg-gray-200 focus:shadow-outline">
                         <span class="text-gray-600">
                             <svg class="h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
                             </svg>
                         </span>
-                        <span>Profile</span>
+                        <span>Payments</span>
                     </a>
                 </li>
-                <li>
+                <li class="transition ease-out duration-200 transform hover:scale-110">
                     <a href="" class="flex items-center space-x-3 text-gray-700 p-2 rounded-md font-medium hover:bg-gray-200 focus:bg-gray-200 focus:shadow-outline">
                         <span class=" text-gray-600">
                             <svg class="h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -106,7 +106,7 @@
                         <span>Notification</span>
                     </a>
                 </li>
-                <li>
+                <li class="transition ease-out duration-200 transform hover:scale-110">
                     <a href="#" class="flex items-center space-x-3 text-gray-700 p-2 rounded-md font-medium hover:bg-gray-200 focus:bg-gray-200 focus:shadow-outline">
                         <span class="text-gray-600">
                             <svg class="h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -116,7 +116,7 @@
                         <span>Settings</span>
                     </a>
                 </li>
-                <li>
+                <li class="transition ease-out duration-200 transform hover:scale-110">
                     <a href="#" class="flex items-center space-x-3 text-gray-700 p-2 rounded-md font-medium hover:bg-gray-200 focus:bg-gray-200 focus:shadow-outline">
                         <span class="text-gray-600">
                             <svg class="h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">

@@ -12,12 +12,12 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\Support\Facades\Mail;
 use Inertia\Inertia;
+use App\Models\Referral;
+use App\Models\Account;
+use Illuminate\Support\Str;
 
 class RegisteredUserController extends Controller
 {
-
-    
-
 
     /**
      * Display the registration view.
@@ -58,11 +58,22 @@ class RegisteredUserController extends Controller
         event(new Registered($user));
 
         Auth::login($user);
+
+        $alpha_num = Str::random(6).Str::random(6);
+        $ref_code = strtoupper(str_shuffle($alpha_num));
         
+        Referral::create([
+            'user_id' => Auth::user()->id,
+            'ref_code' => $ref_code,
+        ]);
+
+        Account::create([
+            'user_id' => Auth::user()->id,
+            'main_balance' => 0.00,
+            'trading_balance' => 0.00, 
+        ]);
+
         return redirect(RouteServiceProvider::HOME);
-
-
-        // return Inertia::render('ThankYou', ['message' => 'Thank you!']);
         
     }
 }

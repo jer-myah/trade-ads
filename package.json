@@ -31,6 +31,9 @@
     "dependencies": {
         "@meforma/vue-toaster": "^1.2.2",
         "moment": "^2.29.1",
-        "sweetalert2": "^11.0.16"
+        "sweetalert2": "^11.0.16",
+        "vue-table-dynamic": "^0.4.5",
+        "vue3-table-lite": "^1.0.5",
+        "windstrap": "^0.0.4"
     }
 }

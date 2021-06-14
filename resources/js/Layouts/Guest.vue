@@ -18,7 +18,7 @@
                     <div class="inline-flex items-center max-w-full">
                         <button class="flex items-center flex-grow-0 flex-shrink pl-2 relative w-60 rounded-full px-1  py-1" type="button">
                             <div class="block flex-grow flex-shrink overflow-hidden">
-                                <a href="/how-it-works" class="text-gray-600"> How It Works </a>
+                                <a href="/how-it-works" class="text-gray-600 focus:outline-none"> How It Works </a>
                             </div>                            
                         </button>
                     </div>

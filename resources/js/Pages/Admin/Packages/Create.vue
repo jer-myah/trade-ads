@@ -27,11 +27,11 @@
                             <div class="flex justify-around">
                                 <div class="flex">
                                     <Label for="photo" value="Yes" class="mx-3" />
-                                    <Input id="photo" type="radio" name="photo" class="mt-1 px-3" v-model="form.photo" />
+                                    <Input id="photo" type="radio" name="photo" value="1" class="mt-1 px-3" v-model="form.photo" />
                                 </div>
                                 <div class="flex">
                                     <Label for="photo" value="No" class="mx-3" />
-                                    <Input id="photo" type="radio" name="photo" class="mt-1 px-3" v-model="form.photo" />
+                                    <Input id="photo" type="radio" name="photo" value="0" class="mt-1 px-3" v-model="form.photo" />
                                 </div>
                             </div>
                         </div>
@@ -41,11 +41,11 @@
                             <div class="flex justify-around">
                                 <div class="flex">
                                     <Label for="media" value="Yes" class="mx-3" />
-                                    <Input id="media" type="radio" name="media" class="mt-1 px-3" v-model="form.media" />
+                                    <Input id="media" type="radio" name="media" value="1" class="mt-1 px-3" v-model="form.media" />
                                 </div>
                                 <div class="flex">
                                     <Label for="media" value="No" class="mx-3" />
-                                    <Input id="media" type="radio" name="media" class="mt-1 px-3" v-model="form.media" />
+                                    <Input id="media" type="radio" name="media" value="0" class="mt-1 px-3" v-model="form.media" />
                                 </div>
                             </div>
                         </div>
@@ -55,23 +55,23 @@
                             <div class="flex justify-around">
                                 <div class="flex">
                                     <Label for="ads_link" value="Yes" class="mx-3" />
-                                    <Input id="ads_link" type="radio" name="ads_link" class="mt-1 px-3" v-model="form.ads_link" />
+                                    <Input id="ads_link" type="radio" name="ads_link" value="1" class="mt-1 px-3" v-model="form.adslink" />
                                 </div>
                                 <div class="flex">
                                     <Label for="ads_link" value="No" class="mx-3" />
-                                    <Input id="ads_link" type="radio" name="ads_link" class="mt-1 px-3" v-model="form.ads_link" />
+                                    <Input id="ads_link" type="radio" name="ads_link" value="0" class="mt-1 px-3" v-model="form.adslink" />
                                 </div>
                             </div>
                         </div>
 
                         <div class="mt-4">
                             <Label for="days" value="Duration in days" />
-                            <Input id="days" type="number" class="mt-1 block w-full" v-model="form.days" required autocomplete="days" />
+                            <Input id="days" type="number" class="mt-1 block w-full" v-model.number="form.days" required autocomplete="days" />
                         </div>
 
                         <div class="mt-4">
                             <Label for="series" value="Series" />
-                            <Input id="series" type="number" class="mt-1 block w-full" v-model="form.series" required autocomplete="series" />
+                            <Input id="series" type="number" class="mt-1 block w-full" v-model.number="form.series" required autocomplete="series" />
                         </div>
 
                         <div class="my-8"></div>

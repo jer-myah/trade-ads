@@ -16,7 +16,7 @@
                 </div>
             </div>
             <ul class="space-y-2 text-sm">
-                <li>
+                <li class="transition ease-out duration-200 transform hover:scale-110">
                     <a href="/dashboard" class="flex items-center space-x-3 text-gray-700 p-2 rounded-md font-medium hover:bg-gray-200 bg-gray-200 focus:shadow-outline">
                         <span class="text-gray-600">
                             <svg class="h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -26,7 +26,7 @@
                         <span>Dashboard</span>
                     </a>
                 </li> 
-                <li>
+                <li class="transition ease-out duration-200 transform hover:scale-110">
                     <a href="/top-trader/available-links" class="flex items-center space-x-3 text-gray-700 p-2 rounded-md font-medium hover:bg-gray-200 focus:bg-gray-200 focus:shadow-outline">
                         <span class="text-gray-600">
                             <svg class="h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -36,7 +36,7 @@
                         <span>Adverts </span>
                     </a>
                 </li>
-                <li>
+                <li class="transition ease-out duration-200 transform hover:scale-110">
                     <a href="#" class="flex items-center space-x-3 text-gray-700 p-2 rounded-md font-medium hover:bg-gray-200 focus:bg-gray-200 focus:shadow-outline">
                         <span class="text-gray-600">
                             <svg class="h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -46,7 +46,7 @@
                         <span>Profile</span>
                     </a>
                 </li>
-                <li>
+                <li class="transition ease-out duration-200 transform hover:scale-110">
                     <a href="" class="flex items-center space-x-3 text-gray-700 p-2 rounded-md font-medium hover:bg-gray-200 focus:bg-gray-200 focus:shadow-outline">
                         <span class=" text-gray-600">
                             <svg class="h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -56,7 +56,7 @@
                         <span>Notification</span>
                     </a>
                 </li>
-                <li>
+                <li class="transition ease-out duration-200 transform hover:scale-110">
                     <a href="/top-trader-account-information" class="flex items-center space-x-3 text-gray-700 p-2 rounded-md font-medium hover:bg-gray-200 focus:bg-gray-200 focus:shadow-outline">
                         <span class="text-gray-600">
                             <svg class="h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -66,7 +66,7 @@
                         <span>Account Information</span>
                     </a>
                 </li>
-                <li>
+                <li class="transition ease-out duration-200 transform hover:scale-110">
                     <a href="#" class="flex items-center space-x-3 text-gray-700 p-2 rounded-md font-medium hover:bg-gray-200 focus:bg-gray-200 focus:shadow-outline">
                         <span class="text-gray-600">
                             <svg class="h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -76,7 +76,7 @@
                         <span>Settings</span>
                     </a>
                 </li>
-                <li>
+                <li class="transition ease-out duration-200 transform hover:scale-110">
                     <a href="#" class="flex items-center space-x-3 text-gray-700 p-2 rounded-md font-medium hover:bg-gray-200 focus:bg-gray-200 focus:shadow-outline">
                         <span class="text-gray-600">
                             <svg class="h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">

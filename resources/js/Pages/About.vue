@@ -240,9 +240,7 @@ export default {
                 Swal.fire('Error', 'Password mismatch', 'error')
             }
 
-            this.form.post('/register', {
-                onFinish: () => this.form.reset('password', 'confirm_password'),                
-            })
+            this.$inertia.post('/register', this.form)
 
         }
     }

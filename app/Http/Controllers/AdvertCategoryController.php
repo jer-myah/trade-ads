@@ -6,6 +6,7 @@ use App\Models\AdvertCategory;
 use App\Models\AdvertPackage;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Auth;
 
 class AdvertCategoryController extends Controller
 {
@@ -16,9 +17,14 @@ class AdvertCategoryController extends Controller
      */
     public function index()
     {
-        $categories = AdvertCategory::where('status', true)->get();
-        $packages = AdvertPackage::where('status', true)->get();
-        return Inertia::render('Admin/Categories/Index', ['categories' => $categories, 'packages' => $packages]);
+        if(Auth::user()->role == 'administrator'){
+            $categories = AdvertCategory::all();
+            return Inertia::render('Admin/Categories/Index', ['categories' => $categories]);
+        }
+        
+        $categories = AdvertCategory::all();
+        return Inertia::render('Users/Adverts', ['categories' => $categories]);
+
     }
 
     /**
@@ -51,7 +57,7 @@ class AdvertCategoryController extends Controller
 
         $category->save();
 
-        return redirect('/admin/view-categories');
+        return redirect('/admin/view-categories')->with('success', 'Category was created successfully!');
     }
 
     /**
@@ -77,9 +83,9 @@ class AdvertCategoryController extends Controller
             return redirect()->back()->with('flash_message_error', 'Cannot find Category!');
         };
 
-        $categories = AdvertCategory::where('id', $id)->first();
+        $category = AdvertCategory::where('id', $id)->first();
 
-        return Inertia::render('Admin/Categories/Edit', ['categories' => $categories]);
+        return Inertia::render('Admin/Categories/Edit', ['category' => $category]);
     }
 
     /**
@@ -92,9 +98,9 @@ class AdvertCategoryController extends Controller
     public function update(Request $request, $id)
     {
         $validated = $request->validate([
-            'name' => 'required|unique:advert_categories|max:255',
+            'name' => 'required||max:255',
             'description' => 'string|max:255',
-            'status' => 'boolean|max:10',
+            'status' => 'boolean',
         ]);
         
         AdvertCategory::where('id', $id)->update([
@@ -103,7 +109,7 @@ class AdvertCategoryController extends Controller
             'status' => $validated['status']
         ]);
 
-        return redirect('/admin/view-categories');
+        return redirect('/admin/view-categories')->with('success', 'Category was updated successfully!');
 
     }
 
@@ -116,11 +122,11 @@ class AdvertCategoryController extends Controller
     public function destroy($id)
     {
         if(AdvertCategory::doesntExist()){
-            return redirect()->back()->with('flash_message_error', 'Cannot find Category!');
+            return redirect()->back()->with('error', 'Cannot find Category!');
         }
 
         AdvertCategory::where('id', $id)->delete();
-        return redirect()->back()->with('flash_message_success', 'Category was deleted successfully!');
+        return redirect()->back()->with('success', 'Category was deleted successfully!');
     }
 
     public function disable(Request $request, $id)
@@ -129,7 +135,7 @@ class AdvertCategoryController extends Controller
             'status' => false
         ]);
 
-        return redirect('/admin/view-categories');
+        return redirect('/admin/view-categories')->with('success', 'Category was disabled successfully!');
     }
 
     public function enable(Request $request, $id)
@@ -138,7 +144,7 @@ class AdvertCategoryController extends Controller
             'status' => true
         ]);
 
-        return redirect('/admin/view-categories');
+        return redirect('/admin/view-categories')->with('success', 'Category was enabled successfully!');
     }
 
 }

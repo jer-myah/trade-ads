@@ -1,88 +1,61 @@
 <template>
     <div>
-        
+        <validation-errors></validation-errors>
+
+        <div v-if="$page.props.flash.warning && toast" class="cursor-pointer p-5 shadow-lg rounded bg-yellow-200 text-gray-600 absolute top-0 right-0 transition duration-500 ease-out focus:opacity-0" >                
+            {{ $page.props.flash.warning }}
+            <button @click="toast=false" class="p-3 focus:outline-none text-lg">x</button>
+        </div>
+
         <Layout>
-            <!-- <div class="w-full py-6">
-                <div class="flex">
-                    <div class="w-1/4">
-                        <div class="relative mb-2">
-                            <div class="w-10 h-10 mx-auto bg-green-500 rounded-full text-lg text-white flex items-center">
-                                <span class="text-center text-white w-full">
-                                    <svg class="w-full fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
-                                        <path class="heroicon-ui" d="M5 3h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5c0-1.1.9-2 2-2zm14 8V5H5v6h14zm0 2H5v6h14v-6zM8 9a1 1 0 1 1 0-2 1 1 0 0 1 0 2zm0 8a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
-                                    </svg>
-                                </span>
-                            </div>
-                        </div>
-
-                        <div class="text-xs text-center md:text-base">Advert</div>
-                        </div>
-
-                        <div class="w-1/4">
-                            <div class="relative mb-2">
-                                <div class="absolute flex align-center items-center align-middle content-center" style="width: calc(100% - 2.5rem - 1rem); top: 50%; transform: translate(-50%, -50%)">
-                                    <div class="w-full bg-gray-200 rounded items-center align-middle align-center flex-1">
-                                        <div class="w-0 bg-gray-300 py-1 rounded" style="width: 100%;"></div>
-                                    </div>
+            
+            <div v-if="! show_form" class="container flex flex-wrap pt-4 pb-10 m-auto mt-6 md:mt-15 lg:px-12 xl:px-16">
+                <div class="w-full px-0 lg:px-4">
+                    <h2 class="px-12 text-base font-bold text-center md:text-2xl text-gray-700">
+                        Choose your plan
+                    </h2>
+                    <p class="py-1 text-lg text-center text-gray-700 mb-10">
+                        It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.
+                    </p>
+                    <div class="flex flex-wrap items-center justify-center py-4 pt-0">
+                        
+                        <div class="w-full p-4 md:w-1/2 lg:w-1/4 transition ease-in-out duration-200 transform hover:scale-110" v-for="(advertPackage) in advertPackages" :key="advertPackage.id"> 
+                            <label class="flex flex-col rounded-lg shadow-lg relative cursor-pointer hover:shadow-2xl">
+                                <div class="w-full px-4 py-8 rounded-t-lg bg-yellow-500">
+                                    <h3 class="mx-auto text-base font-semibold text-center underline text-white group-hover:text-white">
+                                        {{ advertPackage.name }}
+                                    </h3>
+                                    <p class="text-5xl font-bold text-center text-white">
+                                        ${{ advertPackage.amount }}<span class="text-3xl"></span>
+                                    </p>
+                                    <p class="text-xs text-center uppercase text-white">
+                                        {{ advertPackage.days }} Days
+                                    </p>
                                 </div>
+                                <div class="flex flex-col items-center justify-center w-full h-full py-6 rounded-b-lg bg-yellow-700" >
+                                    <p class="text-lg text-white"> Series: {{ advertPackage.series }} Hours  </p>
+                                    <p class="text-md text-white" v-if="advertPackage.photo"> Includes Photo </p>
+                                    <p class="text-md text-white" v-else> Excludes Photo </p>
+                                    <p class="text-md text-white" v-if="advertPackage.media"> Includes Media </p>                                    
+                                    <p class="text-md text-white" v-else> Excludes media </p>
+                                    <p class="text-md text-white" v-if="advertPackage.adslink"> Includes AdsLink </p>
+                                    <p class="text-md text-white" v-else> Excludes AdsLink </p>
 
-                                <div class="w-10 h-10 mx-auto bg-white rounded-full text-lg text-white flex items-center">
-                                    <span class="text-center text-gray-600 w-full">
-                                        <svg class="w-full fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
-                                            <path class="heroicon-ui" d="M19 10h2a1 1 0 0 1 0 2h-2v2a1 1 0 0 1-2 0v-2h-2a1 1 0 0 1 0-2h2V8a1 1 0 0 1 2 0v2zM9 12A5 5 0 1 1 9 2a5 5 0 0 1 0 10zm0-2a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm8 11a1 1 0 0 1-2 0v-2a3 3 0 0 0-3-3H7a3 3 0 0 0-3 3v2a1 1 0 0 1-2 0v-2a5 5 0 0 1 5-5h5a5 5 0 0 1 5 5v2z"/>
-                                        </svg>
-                                    </span>
+                                    <button @click="form.package_id = advertPackage.id, form.package_name = advertPackage.name, show_form=true" class="w-5/6 py-2 mt-2 font-semibold text-center uppercase bg-white focus:outline-none focus:bg-yellow-400 focus:text-yellow-50 rounded text-gray-500">
+                                        Select
+                                    </button>
                                 </div>
-                            </div>
-
-                            <div class="text-xs text-center md:text-base">Advert Details</div>
+                            </label>
                         </div>
 
-                    <div class="w-1/4">
-                        <div class="relative mb-2">
-                            <div class="absolute flex align-center items-center align-middle content-center" style="width: calc(100% - 2.5rem - 1rem); top: 50%; transform: translate(-50%, -50%)">
-                                <div class="w-full bg-gray-200 rounded items-center align-middle align-center flex-1">
-                                    <div class="w-0 bg-gray-300 py-1 rounded" style="width: 100%;"></div>
-                                </div>
-                            </div>
-
-                            <div class="w-10 h-10 mx-auto bg-white border-2 border-gray-200 rounded-full text-lg text-white flex items-center">
-                                <span class="text-center text-gray-600 w-full">
-                                    <svg class="w-full fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
-                                        <path class="heroicon-ui" d="M9 4.58V4c0-1.1.9-2 2-2h2a2 2 0 0 1 2 2v.58a8 8 0 0 1 1.92 1.11l.5-.29a2 2 0 0 1 2.74.73l1 1.74a2 2 0 0 1-.73 2.73l-.5.29a8.06 8.06 0 0 1 0 2.22l.5.3a2 2 0 0 1 .73 2.72l-1 1.74a2 2 0 0 1-2.73.73l-.5-.3A8 8 0 0 1 15 19.43V20a2 2 0 0 1-2 2h-2a2 2 0 0 1-2-2v-.58a8 8 0 0 1-1.92-1.11l-.5.29a2 2 0 0 1-2.74-.73l-1-1.74a2 2 0 0 1 .73-2.73l.5-.29a8.06 8.06 0 0 1 0-2.22l-.5-.3a2 2 0 0 1-.73-2.72l1-1.74a2 2 0 0 1 2.73-.73l.5.3A8 8 0 0 1 9 4.57zM7.88 7.64l-.54.51-1.77-1.02-1 1.74 1.76 1.01-.17.73a6.02 6.02 0 0 0 0 2.78l.17.73-1.76 1.01 1 1.74 1.77-1.02.54.51a6 6 0 0 0 2.4 1.4l.72.2V20h2v-2.04l.71-.2a6 6 0 0 0 2.41-1.4l.54-.51 1.77 1.02 1-1.74-1.76-1.01.17-.73a6.02 6.02 0 0 0 0-2.78l-.17-.73 1.76-1.01-1-1.74-1.77 1.02-.54-.51a6 6 0 0 0-2.4-1.4l-.72-.2V4h-2v2.04l-.71.2a6 6 0 0 0-2.41 1.4zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm0-2a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/>
-                                    </svg>
-                                </span>
-                            </div>
-                        </div>
-
-                        <div class="text-xs text-center md:text-base">Advert Media</div>
-                        </div>
-
-                    <div class="w-1/4">
-                        <div class="relative mb-2">
-                            <div class="absolute flex align-center items-center align-middle content-center" style="width: calc(100% - 2.5rem - 1rem); top: 50%; transform: translate(-50%, -50%)">
-                                <div class="w-full bg-gray-200 rounded items-center align-middle align-center flex-1">
-                                    <div class="w-0 bg-gray-300 py-1 rounded" style="width: 100%;"></div>
-                                </div>
-                            </div>
-
-                            <div class="w-10 h-10 mx-auto bg-white border-2 border-gray-200 rounded-full text-lg text-white flex items-center">
-                                <span class="text-center text-gray-600 w-full">
-                                    <svg class="w-full fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
-                                    <path class="heroicon-ui" d="M12 22a10 10 0 1 1 0-20 10 10 0 0 1 0 20zm0-2a8 8 0 1 0 0-16 8 8 0 0 0 0 16zm-2.3-8.7l1.3 1.29 3.3-3.3a1 1 0 0 1 1.4 1.42l-4 4a1 1 0 0 1-1.4 0l-2-2a1 1 0 0 1 1.4-1.42z"/>
-                                    </svg>
-                                </span>
-                            </div>
-                        </div>
-
-                        <div class="text-xs text-center md:text-base">Publish</div>
                     </div>
                 </div>
-            </div> -->
+            </div>
 
+            <!-- <div class="w-full border-b"></div> -->
 
             <!-- This example requires Tailwind CSS v2.0+ -->
-            <div class="flex flex-col py-8">
+            <div v-if="show_form" class="flex flex-col py-8">
                 
                 <div class="w-10/12 mx-auto pb-8 pt-5 bg-gray-200 shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
                     <div class="w-4/5 mx-auto py-5">
@@ -92,36 +65,37 @@
                     <div class="my-5 border-b border-gray-300"></div>
 
                     <form @submit.prevent="submit" class="w-3/5 mx-auto py-5">
+
+                        <div class="mt-4">
+                            <Label for="plan" value="Plan Selected" />
+                            <Input disabled :value="form.package_name" type="text" class="mt-1 block w-full" />
+                        </div>
                     
+                        <select v-model="form.selected" class="mt-4 border-gray-300 focus:border-green-300 focus:ring focus:ring-green-200 focus:ring-opacity-50 rounded-md shadow-sm py-3" required>
+                            <option disabled value="">Select Advert Category</option>
+                            <option v-for="cat in advertCategories" :key="cat.id" :value="cat.id">{{ cat.name }}</option>
+                        </select>
+
                         <div class="mt-4">
                             <Label for="title" value="Advert Title" />
-                            <Input id="title" type="text" class="mt-1 block w-full" v-model="form.title" required autofocus autocomplete="title" />
+                            <Input id="title" type="text" class="mt-1 block w-full" v-model="form.title" required autocomplete="title" />
                         </div>
 
                         <div class="mt-4">
                             <Label for="description" value="Description" />
-                            <Input id="description" type="text" class="mt-1 block w-full" v-model="form.description" required autocomplete="description" />
+                            <textarea id="description" class="w-full border-gray-300 focus:border-green-300 focus:ring focus:ring-green-200 focus:ring-opacity-50 rounded-md shadow-sm py-3" v-model="form.description" required autocomplete="description"></textarea>
                         </div>
 
-                        <!-- <div class="mt-4">
-                            <Label for="sub_theme" value="" />
-                            <Input id="sub_theme" type="text" class="mt-1 block w-full" v-model="form.sub_theme" required autocomplete="sub_theme" />
-                        </div> -->
+                        <div class="mt-5">
+                            <Label for="image" value="Image" />
+                            <Input id="image" type="file" @input="form.image = $event.target.files[0]" class="mt-1 block w-full" required />
+                        </div>
 
-                        <!-- <div class="mt-4">
-                            <Label for="focus" value="Focus" />
-                            <Input id="focus" type="text" class="mt-1 block w-full" v-model="form.focus" required autocomplete="focus" />
-                        </div> -->
-
-                        <!-- <div class="mt-4">
-                            <Label for="venue" value="Venue" />
-                            <Input id="venue" type="text" class="mt-1 block w-full" v-model="form.venue" required autocomplete="venue" />
-                        </div>  -->
-
-                        <!-- <div class="mt-4">
-                            <Label for="email" value="Contact Email" />
-                            <Input id="email" type="text" class="mt-1 block w-full" v-model="form.email" required autocomplete="email" />
-                        </div>  -->
+                        <div class="mt-5">
+                            <Label for="video" value="Optional Video" />
+                            <!-- <Input id="video" type="file" @input="form.video = $event.target.files[0]" class="mt-1 block w-full" v-bind="form.video" /> -->
+                            <Input id="video" type="file" @input="form.video = $event.target.files[0]" class="mt-1 block w-full" accept="video/.mpeg" />
+                        </div>
 
                         <div class="mt-4">
                             <Label for="phone" value="Contact Phone Number" />
@@ -131,7 +105,7 @@
                         <div class="my-8"></div>
 
                         <div class="flex items-center justify-center mt-4">                            
-                            <Button class="w-full" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
+                            <Button class="w-full focus:outline-none" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
                                 <span class="w-11/12 mx-auto">Place Advert</span>
                             </Button>
                         </div>
@@ -160,28 +134,33 @@ export default {
     },
 
     props: {
-        packages: Object,
-        categories: Object,
+        advertPackages: Object,
+        advertCategories: Object,
     },
 
     data() {
-            return {
-                form: this.$inertia.form({
-                    package: '',
-                    category: '',
-                    title: '',
-                    description: '',
-                    phone: '',
-                    image: ''
-                }),
-                
-            }
-        },
+        return {
+            show_form: false,
+            toast: true,
+            form: this.$inertia.form({
+                selected: '',
+                package_id: '',
+                package_name: '',
+                category: '',
+                title: '',
+                description: '',
+                phone: '',
+                image: '',
+                video: '',
+            }),
 
-        methods: {
-            submit() {
-                this.$inertia.post('/user/place-advert', this.form);
-            }
         }
+    },
+    methods: {
+        
+        submit() {
+            this.$inertia.post('/user/place-advert', this.form);
+        }
+    }
 }
 </script>

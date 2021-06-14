@@ -36,45 +36,27 @@ class AdvertPackageController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    { 
         $validated = $request->validate([
-            'name' => 'required|unique:advert_categories|max:255',
+            'name' => 'required|unique:advert_packages|max:255',
             'price' => 'required|max:6',
             'days' => 'required|max:6',
             'series' => 'required|max:6',
         ]);
-
-        if($request->photo == 'on'){
-            $photo = true;
-        }else{
-            $photo = false;
-        }
-
-        if($request->media == 'on'){
-            $media = true;
-        }else{
-            $media = false;
-        }
-
-        if($request->adslink == 'on'){
-            $adslink = true;
-        }else{
-            $adslink = false;
-        }
         
         $package = new AdvertPackage();
         $package->name = $validated['name'];
         $package->amount = $validated['price'];
-        $package->photo = $photo;
-        $package->media = $media;
-        $package->adslink = $adslink;
+        $package->photo = $request->photo;
+        $package->media = $request->media;
+        $package->adslink = $request->adslink;
         $package->days = $validated['days'];
         $package->series = $validated['series'];
         $package->status = true;
 
         $package->save();
 
-        return redirect('/admin/view-packages');
+        return redirect('/admin/view-packages')->with('success', 'Package was created successfully!');
     }
 
     /**
@@ -110,45 +92,27 @@ class AdvertPackageController extends Controller
     public function update(Request $request, $id)
     {
         if(! AdvertPackage::where('id', $id)->exists()){
-            return redirect()->back()->with('flash_message_error', 'Package does not exists or may have been deleted prevously!');
+            return redirect()->back()->with('warning', 'Package does not exists or may have been deleted prevously!');
         }
 
-        $validated = $request->validate([
+        $request->validate([
             'name' => 'required|unique:advert_categories|max:255',
             'price' => 'required|max:6',
             'days' => 'required|max:6',
             'series' => 'required|max:6',
         ]);
-
-        if($request->photo == 'on'){
-            $photo = true;
-        }else{
-            $photo = false;
-        }
-
-        if($request->media == 'on'){
-            $media = true;
-        }else{
-            $media = false;
-        }
-
-        if($request->adslink == 'on'){
-            $adslink = true;
-        }else{
-            $adslink = false;
-        }
-
+        
         AdvertPackage::where('id', $id)->update([
             'name' => $request->name,
             'amount' => $request->price,
-            'photo' => $photo,
-            'media' => $media,
-            'adslink' => $adslink,
+            'photo' => $request->photo,
+            'media' => $request->media,
+            'adslink' => $request->adslink,
             'days' => $request->days,
             'series' => $request->series
         ]);
 
-        return redirect('/admin/view-packages');
+        return redirect('/admin/view-packages')->with('success', 'Package was updated successfully!');
     }
 
     /**
@@ -160,11 +124,11 @@ class AdvertPackageController extends Controller
     public function destroy($id)
     {
         if(! AdvertPackage::exists()){
-            return redirect()->back()->with('flash_message_error', 'Cannot find Package!');
+            return redirect()->back()->with('error', 'Cannot find Package!');
         }
 
         AdvertPackage::where('id', $id)->delete();
-        return redirect()->back()->with('flash_message_success', 'Package was deleted successfully!');
+        return redirect()->back()->with('success', 'Package was deleted successfully!');
     
     }
 
@@ -174,7 +138,7 @@ class AdvertPackageController extends Controller
             'status' => false
         ]);
 
-        return redirect('/admin/view-packages');
+        return redirect('/admin/view-packages')->with('success', 'Package was disabled successfully!');
     }
 
     public function enable(Request $request, $id)
@@ -183,6 +147,6 @@ class AdvertPackageController extends Controller
             'status' => true
         ]);
 
-        return redirect('/admin/view-packages');
+        return redirect('/admin/view-packages')->with('success', 'Package was enabled successfully!');
     }
 }

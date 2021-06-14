@@ -1,5 +1,14 @@
 <template>
     <div>
+        <div v-if="$page.props.flash.success && toast" class="cursor-pointer p-5 shadow-lg rounded bg-green-200 text-gray-600 absolute top-0 right-0 transition duration-500 ease-out focus:opacity-0" >                
+            {{ $page.props.flash.success }}
+            <button @click="toast=false" class="p-3 focus:outline-none text-lg">x</button>
+        </div>
+        <div v-if="$page.props.flash.warning && toast" class="cursor-pointer p-5 shadow-lg rounded bg-yellow-200 text-gray-600 absolute top-0 right-0 transition duration-500 ease-out focus:opacity-0" >                
+            {{ $page.props.flash.warning }}
+            <button @click="toast=false" class="p-3 focus:outline-none text-lg">x</button>
+        </div>
+
         <Layout>
             <!-- This example requires Tailwind CSS v2.0+ -->
             <div class="mb-8 border-b border-gray-200">
@@ -11,7 +20,7 @@
                             </p>
                         </div>
                         <div class="order-3 mt-2 flex-shrink-0 w-full sm:order-2 sm:mt-0 sm:w-auto">
-                            <a href="/admin/create-package" class="flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-green-600 bg-white hover:bg-green-50">
+                            <a href="/admin/create-package" class="flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-green-600 bg-white hover:bg-green-50 transition ease-out duration-200 transform hover:scale-110">
                             New Package
                             </a>
                         </div>
@@ -112,7 +121,7 @@ export default {
 
     data() {
         return {
-            
+            toast: true
         }
     },
 

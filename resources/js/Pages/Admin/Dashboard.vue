@@ -20,19 +20,19 @@
 
                     <div class="p-5 bg-red-100 rounded shadow-sm">
                         <div class="flex flex-col items-center pt-1">
-                            <div class="text-base text-gray-400 ">Total Conferences</div>
+                            <div class="text-base text-gray-400 ">Total Traders</div>
                             <div class="text-2xl font-bold text-gray-600 ">752</div>                            
                         </div>
                     </div>
                     <div class="p-5 bg-pink-100 rounded shadow-sm">                        
                         <div class="flex flex-col items-center pt-1">
-                            <div class="text-base text-gray-400 ">Abstracts</div>
+                            <div class="text-base text-gray-400 ">Total Adverts</div>
                             <div class="text-2xl font-bold text-gray-600 ">1375</div>                            
                         </div>
                     </div>
                     <div class="p-5 bg-indigo-100 rounded shadow-sm">
                         <div class="flex flex-col items-center pt-1">
-                            <div class="text-base text-gray-400 ">Registrations</div>
+                            <div class="text-base text-gray-400 ">Total Links</div>
                             <div class="text-2xl font-bold text-gray-600 ">1375</div>                            
                         </div>
                     </div>

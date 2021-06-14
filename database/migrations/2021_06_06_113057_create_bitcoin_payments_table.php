@@ -21,6 +21,7 @@ class CreateBitcoinPaymentsTable extends Migration
             $table->string('address');
             $table->double('value');
             $table->string('rbf_attribute')->nullable();
+            $table->boolean('credited')->default(false);
             $table->softDeletes();
             $table->timestamps();
         });

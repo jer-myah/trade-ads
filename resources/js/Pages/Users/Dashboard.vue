@@ -26,13 +26,13 @@
                     </div>
                     <div class="p-5 bg-pink-100 rounded shadow-sm">                        
                         <div class="flex flex-col items-center pt-1">
-                            <div class="text-base text-gray-400 ">Abstracts</div>
+                            <div class="text-base text-gray-400 ">Recent</div>
                             <div class="text-2xl font-bold text-gray-900 ">1375</div>                            
                         </div>
                     </div>
                     <div class="p-5 bg-indigo-100 rounded shadow-sm">
                         <div class="flex flex-col items-center pt-1">
-                            <div class="text-base text-gray-400 ">Registrations</div>
+                            <div class="text-base text-gray-400 ">Recent</div>
                             <div class="text-2xl font-bold text-gray-900 ">1375</div>                            
                         </div>
                     </div>

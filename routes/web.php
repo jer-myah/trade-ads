@@ -41,18 +41,16 @@ Route::group(['middleware' => ['auth', 'verified', 'isuser']], function () {
         return Inertia::render('Users/Dashboard');
     })->name('dashboard');
 
-    Route::get('/user-adverts', function () {
-        return Inertia::render('Users/Adverts');
-    });
 
     Route::get('/user-account-information', function () {
         return Inertia::render('Users/AccountInformation');
     });
 
-    Route::get('/user/place-advert', function ()
-    {
-        return Inertia::render('Users/CreateAdvert');
-    });
+    Route::get('/user-adverts', [App\Http\Controllers\AdvertController::class, 'index']);
+    Route::get('/user/place-advert', [App\Http\Controllers\AdvertController::class, 'create']);
+    Route::post('/user/place-advert', [App\Http\Controllers\AdvertController::class, 'store']);
+    Route::get('/user/edit-advert/{id}', [App\Http\Controllers\AdvertController::class, 'edit']);
+    Route::post('/user/update-advert/{id}', [App\Http\Controllers\AdvertController::class, 'post']);
 
 });
 
@@ -98,6 +96,9 @@ Route::group(['middleware' => ['auth', 'verified', 'isadmin']], function () {
     Route::get('/admin/disable-package/{id}', ['App\Http\Controllers\AdvertPackageController', 'disable']);
     Route::get('/admin/enable-package/{id}', ['App\Http\Controllers\AdvertPackageController', 'enable']);
     Route::get('/admin/delete-package/{id}', ['App\Http\Controllers\AdvertPackageController', 'destroy']);
+
+    Route::get('/admin/payments', [App\Http\Controllers\BitcoinPaymentController::class, 'index']);
+    Route::get('/admin/credit/{id}', [App\Http\Controllers\BitcoinPaymentController::class, 'update']);
 });
     
 

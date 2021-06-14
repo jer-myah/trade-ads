@@ -18,10 +18,12 @@ class CreateAdvertsTable extends Migration
             $table->foreignUuid('advert_package_id')->constrained()->cascadeOnDelete();
             $table->foreignUuid('advert_category_id')->constrained()->cascadeOnDelete();
             $table->string('title')->unique();
-            $table->string('description');
+            $table->text('description');
             $table->string('image');
             $table->string('video')->nullable();
             $table->float('amount');
+            $table->string('phone');
+            $table->string('email')->nullable();
             $table->foreignUuid('user_id')->constrained()->cascadeOnDelete();
             $table->boolean('status')->default(true);
             $table->softDeletes();
