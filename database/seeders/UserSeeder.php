@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Carbon\Carbon;
 
 class UserSeeder extends Seeder
 {
@@ -16,12 +17,13 @@ class UserSeeder extends Seeder
     public function run()
     {
         DB::table('users')->insert([
-            'id' => 'hteSF5h87Bmkwi-dj',
+            'id' => 'htehfe3SF5-h87Bmkwi-d97hy3fj',
             'first_name' => 'Admin',
             'last_name' => 'Admin',
             'email' => 'admin@trade-ads.com',
             'role' => 'administrator',
             'status' => 'active',
+            'email_verified_at' => Carbon::now(),
             'password' => Hash::make('admin-trade-ads'),
         ]);
     }
