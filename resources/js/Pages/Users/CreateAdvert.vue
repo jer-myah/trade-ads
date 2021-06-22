@@ -15,7 +15,7 @@
                         Choose your plan
                     </h2>
                     <p class="py-1 text-lg text-center text-gray-700 mb-10">
-                        It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.
+                        Pick the plan that is best for you and start getting results.
                     </p>
                     <div class="flex flex-wrap items-center justify-center py-4 pt-0">
                         
