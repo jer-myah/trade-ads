@@ -10,7 +10,7 @@
         <Layout>
             <!-- <div class="w-full border-b"></div> -->
 
-            <!-- This example requires Tailwind CSS v2.0+ -->
+            <!--  -->
             <div class="flex flex-col py-8">
                 
                 <div class="w-10/12 mx-auto pb-8 pt-5 bg-gray-200 shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
