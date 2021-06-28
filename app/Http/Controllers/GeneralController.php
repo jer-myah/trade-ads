@@ -4,7 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Foundation\Application;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Referral;
+use App\Models\Account;
+use App\Models\Advert;
+use Illuminate\Support\Str;
+use Inertia\Inertia;
 
 class GeneralController extends Controller
 {
@@ -15,7 +23,14 @@ class GeneralController extends Controller
      */
     public function index()
     {
-        //
+        $adverts = Advert::all(); 
+        return Inertia::render('Welcome', [
+            'canLogin' => Route::has('login'),
+            'canRegister' => Route::has('register'),
+            'laravelVersion' => Application::VERSION,
+            'phpVersion' => PHP_VERSION,
+            'adverts' => $adverts,
+        ]);
     }
 
     /**
@@ -36,18 +51,33 @@ class GeneralController extends Controller
      */
     public function store(Request $request)
     {
+        
         $user = new User();
-
+        
         $user->first_name = $request->first_name;
         $user->last_name = $request->last_name;
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
-        $user->role = 'voluntary-trader';
-        $user->status = 0;
-
+        $user->role = $request->role;
+        $user->status = $request->status;
+        
         $user->save();
 
-        return redirect()->back()->with('flash_message_success', 'Registration was successful!');
+        $alpha_num = Str::random(6).Str::random(6);
+        $ref_code = strtoupper(str_shuffle($alpha_num));
+        
+        Referral::create([
+            'user_id' => $user->id,
+            'ref_code' => $ref_code,
+        ]);
+
+        Account::create([
+            'user_id' => $user->id,
+            'main_balance' => 0.00,
+            'trading_balance' => 0.00, 
+        ]);
+
+        return redirect('/login')->with('flash_message_success', 'Registration was successful!');
     }
 
     /**

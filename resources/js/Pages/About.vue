@@ -204,6 +204,7 @@ export default {
                 password: '',
                 confirm_password: '',
                 role: 'voluntary-trader',
+                status: 'in-active'
             })
         }
     },
@@ -211,10 +212,10 @@ export default {
         registerTrader () {
             if(this.form.password !== this.form.confirm_password){
                 Swal.fire('Error', 'Password mismatch', 'error')
+            }else{ 
+                this.$inertia.post('/create-trader', this.form)
+                this.show_modal = false
             }
-
-            this.$inertia.post('/register', this.form)
-
         }
     }
 }

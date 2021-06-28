@@ -5,7 +5,6 @@
                 Dashboard 
             </h2>
         </div>
-
         
         <div class="flex items-center">
             <div class="container max-w-6xl px-5 mx-auto my-8">
@@ -53,6 +52,7 @@
         props: {
             auth: Object,
             errors: Object,
+            adverts: Object,
         },
     }
 </script>

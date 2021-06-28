@@ -17,22 +17,16 @@ use App\Models\User;
 |
 */
 
-Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
-});
+Route::get('/', [App\Http\Controllers\GeneralController::class, 'index']);
 
 Route::get('/how-it-works', function () {
     return Inertia::render('About');
 });
-Route::post('/register-trader', [App\Http\Controllers\GeneralController::class, 'store']);
+Route::post('/create-trader', [App\Http\Controllers\GeneralController::class, 'store']);
 // Route::get('/thank', function () { return Inertia::render('ThankYou'); });
 
 Route::get('/blockonomics', [App\Http\Controllers\BitcoinPaymentController::class, 'store']);
+Route::get('/admin/approve/user-details/{id}', [App\Http\Controllers\UserController::class, 'approveTrader']);
 
 
 // user routes
@@ -99,6 +93,8 @@ Route::group(['middleware' => ['auth', 'verified', 'isadmin']], function () {
 
     Route::get('/admin/payments', [App\Http\Controllers\BitcoinPaymentController::class, 'index']);
     Route::get('/admin/credit/{id}', [App\Http\Controllers\BitcoinPaymentController::class, 'update']);
+
+    Route::get('/admin/view-adverts', [App\Http\Controllers\AdvertController::class, 'index']);
 });
     
 

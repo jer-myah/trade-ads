@@ -101,10 +101,14 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    // public function create()
-    // {
-        //
-    // }
+    public function approveTrader($id)
+    {
+        User::where('id', $id)->update([
+            'status' => 'active'
+        ]);
+
+        return back()->with('success', 'User account has been approved!');
+    }
 
     /**
      * Store a newly created resource in storage.
