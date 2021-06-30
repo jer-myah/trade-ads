@@ -1,5 +1,14 @@
 <template>
     <div>
+        <div v-if="$page.props.flash.success && toast" class="cursor-pointer p-5 shadow-lg rounded bg-green-200 text-gray-600 absolute top-0 right-0 transition duration-500 ease-out focus:opacity-0" >                
+            {{ $page.props.flash.success }}
+            <button @click="toast=false" class="p-3 focus:outline-none text-lg">x</button>
+        </div>
+        <div v-if="$page.props.flash.warning && toast" class="cursor-pointer p-5 shadow-lg rounded bg-yellow-200 text-gray-600 absolute top-0 right-0 transition duration-500 ease-out focus:opacity-0" >                
+            {{ $page.props.flash.warning }}
+            <button @click="toast=false" class="p-3 focus:outline-none text-lg">x</button>
+        </div>
+
         <teleport to="#modal" v-if="show_modal">
             <div class="min-w-screen h-screen animated fadeIn faster  fixed  left-0 top-0 flex justify-center items-center inset-0 z-50 outline-none focus:outline-none"  style="background: rgba(0,0,0,.2);" id="modal-id">
                 <div class="w-full  max-w-lg p-5 relative mx-auto my-auto rounded-xl shadow-lg  bg-white ">
@@ -82,8 +91,8 @@
                                     </th>
                                     </tr>
                                 </thead>
-                                <tbody class="bg-white divide-y divide-gray-200">
-                                    <tr v-if="toggle" v-for="(user, index) in users" :key="user.id">
+                                <tbody v-if="toggle" class="bg-white divide-y divide-gray-200">
+                                    <tr v-for="(user, index) in users" :key="user.id">
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             <div class="text-sm text-gray-500">
                                                 {{ index + 1 }}
@@ -106,11 +115,13 @@
                                             </span>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                            <a :href="'/admin/view/user-details/' + user.id" class="text-yellow-800 hover:text-yellow-900">Details</a>
+                                            <a :href="'/admin/view/user-details/' + user.id" class=""><button-small>Details</button-small></a>
                                         </td>
                                     </tr>
+                                </tbody>
 
-                                    <tr v-else v-for="(trader, index) in traders" :key="trader.id">
+                                <tbody v-else class="bg-white divide-y divide-gray-200">
+                                    <tr v-for="(trader, index) in traders" :key="trader.id">
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             <div class="text-sm text-gray-500">
                                                 {{ index + 1 }}
@@ -133,7 +144,7 @@
                                             <span v-else class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-600 uppercase"> {{ trader.status }} </span>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                            <breeze-button @click="id=trader.id, approveTrader" class="text-white hover:text-gray-50">Approve</breeze-button>
+                                            <a :href="'/admin/approve-trader/'+trader.id"><breeze-button class="text-white hover:text-gray-50">Approve</breeze-button></a>
                                         </td>
                                     </tr>
 
@@ -152,18 +163,21 @@
 <script>
 import Layout from '@/Layouts/AdminLayout'
 import BreezeButton from '@/Components/Button'
+import ButtonSmall from '@/Components/ButtonSmall'
 
 export default {
     components: {
         Layout,
         BreezeButton,
+        ButtonSmall,
     },
     props: ['users', 'traders'],
     data() {
         return {
             toggle: true,
             show_modal: false,
-            id: ''
+            id: '',
+            toast: true
         }
     },
     methods: {

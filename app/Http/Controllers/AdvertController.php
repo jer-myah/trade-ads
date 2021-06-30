@@ -100,9 +100,14 @@ class AdvertController extends Controller
      * @param  \App\Models\Advert  $advert
      * @return \Illuminate\Http\Response
      */
-    public function show(Advert $advert)
+    public function show($id)
     {
-        //
+        if(Advert::where('id', $id)->doesntExist()){
+            return back()->with('warning', 'There seems to be an error with this request!');
+        }
+
+        $advert = Advert::where('id', $id)->first();
+        return Inertia::render('Admin/Adverts/Show', ['advert' => $advert]);
     }
 
     /**

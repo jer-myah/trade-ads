@@ -1,11 +1,9 @@
 <template>
     <div class="flex flex-wrap bg-gray-100 w-full h-full">
         <div class="w-full bg-white rounded p-3 shadow-sm">
-
             <img class="h-14 pb-2 bg-center" src="images/logo.jpg" alt="">
-
             <div class="flex border-t items-center space-x-4 p-2 mb-5">                
-                <img class="h-12 rounded-full" src="http://www.gravatar.com/avatar/2acfb745ecf9d4dccb3364752d17f65f?s=260&d=mp" alt="James Bhatta">
+                <img class="h-12 rounded-full" src="http://www.gravatar.com/avatar/2acfb745ecf9d4dccb3364752d17f65f?s=260&d=mp" alt="avatar">
                 <div>
                     <h4 class="font-semibold text-lg text-gray-700 capitalize font-poppins tracking-wide overflow-x-hidden">  {{ $page.props.auth.user.role }} </h4>
                     <span class="text-sm tracking-wide flex items-center space-x-1">

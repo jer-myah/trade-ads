@@ -15,7 +15,7 @@ class UserRepository implements UserRepositoryInterface
     {
         try {
             $users = User::where('role', '!=', 'administrator')->where('status', 'active')->get();
-            $traders = User::where('role', '!=', 'administrator')->where('role', 'voluntary-trader')->get();
+            $traders = User::where('role', '=', 'voluntary-trader')->where('status', 'in-active')->get();
             return Inertia::render('Admin/Users/Index', ['users' => $users, 'traders' => $traders]);
         } catch(\Exception $e) {
             return redirect()->back();

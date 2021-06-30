@@ -26,7 +26,7 @@ Route::post('/create-trader', [App\Http\Controllers\GeneralController::class, 's
 // Route::get('/thank', function () { return Inertia::render('ThankYou'); });
 
 Route::get('/blockonomics', [App\Http\Controllers\BitcoinPaymentController::class, 'store']);
-Route::get('/admin/approve/user-details/{id}', [App\Http\Controllers\UserController::class, 'approveTrader']);
+
 
 
 // user routes
@@ -70,6 +70,7 @@ Route::group(['middleware' => ['auth', 'verified', 'isadmin']], function () {
 
     Route::get('/admin/view-users', ['App\Http\Controllers\UserController', 'index']);
     Route::get('/admin/view/user-details/{id}', ['App\Http\Controllers\UserController', 'show']);
+    Route::get('/admin/approve-trader/{id}', [App\Http\Controllers\UserController::class, 'approveTrader']);
 
     Route::get('/admin/view-categories', ['App\Http\Controllers\AdvertCategoryController', 'index']);
     Route::get('/admin/view/category-details/{id}', ['App\Http\Controllers\AdvertCategoryController', 'show']);
@@ -95,6 +96,9 @@ Route::group(['middleware' => ['auth', 'verified', 'isadmin']], function () {
     Route::get('/admin/credit/{id}', [App\Http\Controllers\BitcoinPaymentController::class, 'update']);
 
     Route::get('/admin/view-adverts', [App\Http\Controllers\AdvertController::class, 'index']);
+    Route::get('/admin/show-advert/{id}', [App\Http\Controllers\AdvertController::class, 'show']);
+    
+    
 });
     
 
