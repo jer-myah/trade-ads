@@ -18,8 +18,9 @@ class RouteServiceProvider extends ServiceProvider
      * @var string
      */
     public const HOME = '/dashboard';
-    public const VOLUNTARYTRADER = '/trader-dashboard';
-    public const TOPTRADER = '/top-trader-dashboard';
+    // public const VOLUNTARYTRADER = '/trader-dashboard';
+    public const TRADER = '/trader-dashboard';
+    // public const TOPTRADER = '/top-trader-dashboard';
     public const SUPERADMINISTRATOR = '/admin-dashboard';
 
     /**

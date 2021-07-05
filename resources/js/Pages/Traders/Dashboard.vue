@@ -43,7 +43,7 @@
 </template>
 
 <script>
-    import Layout from '@/Layouts/VoluntaryTrader'
+    import Layout from '@/Layouts/Trader'
 
     export default {
         components: {

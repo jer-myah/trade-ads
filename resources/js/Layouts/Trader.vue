@@ -31,8 +31,8 @@
     import BreezeDropdownLink from '@/Components/DropdownLink'
     import BreezeNavLink from '@/Components/NavLink'
     import BreezeResponsiveNavLink from '@/Components/ResponsiveNavLink'
-    import Header from '@/Components/VoluntaryTraders/Header'
-    import Sidebar from '@/Components/VoluntaryTraders/Sidebar'
+    import Header from '@/Components/Traders/Header'
+    import Sidebar from '@/Components/Traders/Sidebar'
 
     export default {
         components: {

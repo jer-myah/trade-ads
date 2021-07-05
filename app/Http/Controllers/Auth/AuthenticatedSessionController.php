@@ -45,13 +45,14 @@ class AuthenticatedSessionController extends Controller
             return redirect()->intended(RouteServiceProvider::SUPERADMINISTRATOR);
         }
 
-        if($request->user()->role == 'top-trader'){
-            return redirect()->intended(RouteServiceProvider::TOPTRADER);
+        if($request->user()->role == 'top-trader' || $request->user()->role == 'voluntary-trader'){
+            // return redirect()->intended(RouteServiceProvider::TOPTRADER);
+            return redirect()->intended(RouteServiceProvider::TRADER);
         }
 
-        if($request->user()->role == 'voluntary-trader'){
-            return redirect()->intended(RouteServiceProvider::VOLUNTARYTRADER);
-        }
+        // if($request->user()->role == 'voluntary-trader'){
+        //     return redirect()->intended(RouteServiceProvider::VOLUNTARYTRADER);
+        // }
         
     }
 

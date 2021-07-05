@@ -13,7 +13,7 @@
                         </div>
                         <div class="px-5 py-3">
                             <h3 class="text-gray-700 uppercase">{{ advert.title }}</h3>
-                            <span class="text-gray-500 mt-2">$123</span>
+                            <span class="text-gray-500 mt-2">$123 </span>
                         </div>
                     </div>
                     <div class="w-full max-w-sm mx-auto rounded-md shadow-md overflow-hidden">

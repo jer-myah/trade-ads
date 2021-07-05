@@ -77,14 +77,12 @@
                         Advert Information
                     </h3>
                     <p class="mt-1 max-w-2xl text-sm text-gray-500">
-                        Detail Information for advert
+                        Detail Information for advert 
                     </p>
                 </div>
 
                 <div>
-                    <edit-button 
-                    @click="
-                    edit_profile=true">Create Link</edit-button>
+                    <edit-button @click="edit_profile=true">Create Link</edit-button>
                 </div>
             </div>
             <div class="border-t border-gray-200">
@@ -126,7 +124,6 @@
         </div>
 
 
-        
     </layout>
 </template>
 

@@ -6,9 +6,11 @@ use App\Models\Advert;
 use App\Models\Account;
 use App\Models\AdvertPackage;
 use App\Models\AdvertCategory;
+use App\Models\Link;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class AdvertController extends Controller
 {
@@ -90,6 +92,40 @@ class AdvertController extends Controller
                 'video' => $video
             ]);
         }
+
+        // create link
+        if(Link::count() < 1){
+            $link = new Link();
+
+            $link->link = Str::random(16);
+            $link->advert_id = $advert->id;
+            $link->initial_duration = $plan->series;
+            $link->duration = $plan->series;
+
+            $link->save();
+
+            return redirect('/user-adverts')->with('success', 'Advert was created successfully!');
+        }
+
+        if(Link::where('status', 'active')->where('percentage', '<', 30)->exists()){
+            $link = Link::where('status', 'active')->where('percentage', '<', 301)->first();
+            $percentage = ($link->initial_duration / ($link->duration + $plan->series)) * 100;
+
+            Link::where('id', $link->id)->increment('duration', $plan->series)->increment('total_increment', $plan->series)->increment('percentage', $percentage);
+
+            return redirect('/user-adverts')->with('success', 'Advert was created successfully!');
+        }
+
+        Link::where('status', 'active')->where('percentage', '>', 300)->update([
+            'status' => 'in-active'
+        ]);
+
+        $link = new Link();
+
+        $link->link = Str::random(16);
+        $link->advert_id = $advert->id;
+        $link->initial_duration = $plan->series;
+        $link->duration = $plan->series;
 
         return redirect('/user-adverts')->with('success', 'Advert was created successfully!');
     }

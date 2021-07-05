@@ -48,16 +48,21 @@ Route::group(['middleware' => ['auth', 'verified', 'isuser']], function () {
 
 });
 
-// top traders routes
-Route::get('/top-trader-dashboard', function () {
-    return Inertia::render('TopTraders/Dashboard');
-})->middleware(['auth', 'verified', 'istoptrader'])->name('top-dashboard');
+// traders routes
+Route::group(['middleware' => ['auth', 'verified', 'istrader']], function() {
+    Route::get('/trader-dashboard', [App\Http\Controllers\TradersController::class, 'index']);
+    Route::get('/available-links', [App\Http\Controllers\TradersController::class, 'availableLinks']);
+    Route::get('/tradeable-links', [App\Http\Controllers\TradersController::class, 'tradeableLinks']);
+    Route::get('/trading-section', [App\Http\Controllers\TradersController::class, 'tradingSection']);
+    Route::get('/account-information', [App\Http\Controllers\TradersController::class, 'accountInformation']);
+});
+
 
 
 // voluntary traders routes
-Route::get('/trader-dashboard', function () {
-    return Inertia::render('VoluntaryTraders/Dashboard');
-})->middleware(['auth', 'verified', 'istrader'])->name('trader-dashboard');
+// Route::get('/trader-dashboard', function () {
+//     return Inertia::render('VoluntaryTraders/Dashboard');
+// })->middleware(['auth', 'verified', 'istrader'])->name('trader-dashboard');
 
 
 
