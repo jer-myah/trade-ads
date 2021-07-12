@@ -11,8 +11,15 @@
                     </p>
                 </div>
 
+                <div class="flex pt-3">
+                    <div><button class="mx-2 focus:outline-none p-2 bg-blue-300">10 d</button></div>
+                    <div><button class="focus:outline-none p-2 bg-yellow-300">2 m</button></div>
+                    <div><button class="mx-2 focus:outline-none p-2 bg-green-300">3 s</button></div>
+                </div>
+
                 <div>
-                    <edit-button >Create Link</edit-button>
+                    <button class="border text-gray-500 px-3 py-2 focus:outline-none">Main Balance</button><button class="border border-l-0 text-gray-500 px-3 py-2 focus:outline-none">0.00</button>
+                    <button class="ml-2 border text-gray-500 px-3 py-2 focus:outline-none">Trading Balance</button><button class="border border-l-0 text-gray-500 px-3 py-2 focus:outline-none">0.00</button>
                 </div>
             </div>
             <div class="border-t border-gray-200">
@@ -57,8 +64,10 @@
 
 <script>
 import Layout from '@/Layouts/Trader'
+import Button from '@/Components/Button.vue'
 
 export default {
+  components: { Button },
     layout: Layout,
     setup() {
         

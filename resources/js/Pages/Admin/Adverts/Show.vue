@@ -1,4 +1,13 @@
 <template>
+    <div v-if="$page.props.flash.success && toast" class="cursor-pointer p-5 shadow-lg rounded bg-green-200 text-gray-600 absolute top-0 right-0 transition duration-500 ease-out focus:opacity-0" >                
+        {{ $page.props.flash.success }}
+        <button @click="toast=false" class="p-3 focus:outline-none text-lg">x</button>
+    </div>
+    <div v-if="$page.props.flash.warning && toast" class="cursor-pointer p-5 shadow-lg rounded bg-yellow-200 text-gray-600 absolute top-0 right-0 transition duration-500 ease-out focus:opacity-0" >                
+        {{ $page.props.flash.warning }}
+        <button @click="toast=false" class="p-3 focus:outline-none text-lg">x</button>
+    </div>
+
     <teleport to="#modal" v-if="edit_profile">
         <div class="fixed z-50 inset-0 overflow-y-auto transition-opacity duration-1000 ease-out" aria-labelledby="modal-title" role="dialog" aria-modal="true">
             <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
@@ -82,8 +91,10 @@
                 </div>
 
                 <div>
-                    <edit-button @click="edit_profile=true">Create Link</edit-button>
+                    <breeze-button v-if="!advert.status" @click="approveAdvert">Approve Advert</breeze-button>
+                    <breeze-button class="ml-2" @click="goBack">Back</breeze-button>
                 </div>
+            
             </div>
             <div class="border-t border-gray-200">
                 <dl>
@@ -108,15 +119,31 @@
                             Advert Image
                         </dt>
                         <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                            {{ advert.image }}
+                            <img :src="'/storage/'+advert.image" style="height:120px">
                         </dd>
                     </div>
                     <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                         <dt class="text-sm font-medium text-gray-500">
-                            Organization Location
+                            Advert Package
                         </dt>
                         <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                            {{ advert.id }}
+                            {{ plan }}
+                        </dd>
+                    </div> 
+                    <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                        <dt class="text-sm font-medium text-gray-500">
+                            Advert Category
+                        </dt>
+                        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                            {{ cat }}
+                        </dd>
+                    </div> 
+                    <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                        <dt class="text-sm font-medium text-gray-500">
+                            User Contact
+                        </dt>
+                        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                            {{ advert.phone }}
                         </dd>
                     </div> 
                 </dl>
@@ -143,21 +170,24 @@ export default {
         EditButton
     },
     props: {
-        advert: Object
+        advert: Object,
+        plan: Object,
+        cat: Object,
     },
     data() {
         return {
-            edit_profile: false
+            toast: true
         }
     },
     
     methods: {
-        changePassword() {
-            this.$inertia.post('/update-password', this.form);
+        goBack() {
+            this.$inertia.get('/admin/view-adverts');
         },
-        updateProfile() {
-            this.$inertia.post('/update-profile', this.edit_form);
-            this.edit_profile = false
+        approveAdvert() {
+            if(this.advert.status == 0){
+                this.$inertia.get('/admin/approve-advert/'+this.advert.id)
+            }
         }
     },
 }

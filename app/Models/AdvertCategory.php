@@ -11,4 +11,10 @@ class AdvertCategory extends Model
 {
     use HasFactory, Uuids, SoftDeletes;
 
+    public function adverts()
+    {
+        return $this->hasMany(Advert::class);
+    }
+
+
 }

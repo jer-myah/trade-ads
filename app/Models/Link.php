@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\Uuids;
 
+
 class Link extends Model
 {
     use HasFactory, Uuids;
@@ -22,7 +23,7 @@ class Link extends Model
      *
      * @var array
      */
-    protected $hidden = [
+    protected $guard = [
         'total_increment',
         'percentage',
         'total_decrement',
@@ -32,4 +33,9 @@ class Link extends Model
         'voluntary_sale',
         'shared_with'
     ];
+
+    public function advert()
+    {
+        return $this->belongsTo(Advert::class);
+    }
 }

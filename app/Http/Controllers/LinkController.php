@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Link;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class LinkController extends Controller
 {
@@ -14,7 +15,11 @@ class LinkController extends Controller
      */
     public function index()
     {
-        //
+        $links = Link::where('status', '!=', 'active')->with('advert')->get();
+
+        $current_link = Link::where('status', 'active')->with('advert')->first();
+
+        return Inertia::render('Admin/Links/Index', ['links' => $links, 'current_link' => $current_link]);
     }
 
     /**
@@ -70,6 +75,22 @@ class LinkController extends Controller
     public function update(Request $request, Link $link)
     {
         //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Link  $link
+     * @return \Illuminate\Http\Response
+     */
+    public function share(Request $request)
+    { 
+        Link::where('id', $request->id)->update([
+            'shared_with' => $request->shared
+        ]);
+
+        return redirect('/admin/view-links')->with('success', 'Link has been shared!');
     }
 
     /**

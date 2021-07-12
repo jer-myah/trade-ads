@@ -73,19 +73,19 @@ Route::group(['middleware' => ['auth', 'verified', 'isadmin']], function () {
         return Inertia::render('Admin/Dashboard', ['total_users' => $total_users]);
     })->name('admin-dashboard');
 
-    Route::get('/admin/view-users', ['App\Http\Controllers\UserController', 'index']);
-    Route::get('/admin/view/user-details/{id}', ['App\Http\Controllers\UserController', 'show']);
+    Route::get('/admin/view-users', [App\Http\Controllers\UserController::class, 'index']);
+    Route::get('/admin/view/user-details/{id}', [App\Http\Controllers\UserController::class, 'show']);
     Route::get('/admin/approve-trader/{id}', [App\Http\Controllers\UserController::class, 'approveTrader']);
 
-    Route::get('/admin/view-categories', ['App\Http\Controllers\AdvertCategoryController', 'index']);
-    Route::get('/admin/view/category-details/{id}', ['App\Http\Controllers\AdvertCategoryController', 'show']);
-    Route::get('/admin/create-category', ['App\Http\Controllers\AdvertCategoryController', 'create']);
-    Route::post('/admin/store-category', ['App\Http\Controllers\AdvertCategoryController', 'store']);
-    Route::get('/admin/edit-category/{id}', ['App\Http\Controllers\AdvertCategoryController', 'edit']);
-    Route::post('/admin/update-category/{id}', ['App\Http\Controllers\AdvertCategoryController', 'update']);
-    Route::get('/admin/disable-category/{id}', ['App\Http\Controllers\AdvertCategoryController', 'disable']);
-    Route::get('/admin/enable-category/{id}', ['App\Http\Controllers\AdvertCategoryController', 'enable']);
-    Route::get('/admin/delete-category/{id}', ['App\Http\Controllers\AdvertCategoryController', 'destroy']);
+    Route::get('/admin/view-categories', [App\Http\Controllers\AdvertCategoryController::class, 'index']);
+    Route::get('/admin/view/category-details/{id}', [App\Http\Controllers\AdvertCategoryController::class, 'show']);
+    Route::get('/admin/create-category', [App\Http\Controllers\AdvertCategoryController::class, 'create']);
+    Route::post('/admin/store-category', [App\Http\Controllers\AdvertCategoryController::class, 'store']);
+    Route::get('/admin/edit-category/{id}', [App\Http\Controllers\AdvertCategoryController::class, 'edit']);
+    Route::post('/admin/update-category/{id}', [App\Http\Controllers\AdvertCategoryController::class, 'update']);
+    Route::get('/admin/disable-category/{id}', [App\Http\Controllers\AdvertCategoryController::class, 'disable']);
+    Route::get('/admin/enable-category/{id}', [App\Http\Controllers\AdvertCategoryController::class, 'enable']);
+    Route::get('/admin/delete-category/{id}', [App\Http\Controllers\AdvertCategoryController::class, 'destroy']);
 
     Route::get('/admin/view-packages', ['App\Http\Controllers\AdvertPackageController', 'index']);
     Route::get('/admin/view/package-details/{id}', ['App\Http\Controllers\AdvertPackageController', 'show']);
@@ -102,8 +102,11 @@ Route::group(['middleware' => ['auth', 'verified', 'isadmin']], function () {
 
     Route::get('/admin/view-adverts', [App\Http\Controllers\AdvertController::class, 'index']);
     Route::get('/admin/show-advert/{id}', [App\Http\Controllers\AdvertController::class, 'show']);
-    
-    
+    Route::get('/admin/approve-advert/{id}', [App\Http\Controllers\AdvertController::class, 'approveAdvert']);
+    Route::get('/admin/delete-advert/{id}', [App\Http\Controllers\AdvertController::class, 'deleteAdvert']);
+
+    Route::get('/admin/view-links', [App\Http\Controllers\LinkController::class, 'index']);
+    Route::post('/admin/share-link', [App\Http\Controllers\LinkController::class, 'share']);
 });
     
 

@@ -10,6 +10,7 @@ use App\Models\Link;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class AdvertController extends Controller
@@ -142,8 +143,10 @@ class AdvertController extends Controller
             return back()->with('warning', 'There seems to be an error with this request!');
         }
 
-        $advert = Advert::where('id', $id)->first();
-        return Inertia::render('Admin/Adverts/Show', ['advert' => $advert]);
+        $advert = Advert::where('id', $id)->with('advertPackage', 'advertCategory')->first();
+        $plan = $advert->advertPackage->name;
+        $cat = $advert->advertCategory->name;
+        return Inertia::render('Admin/Adverts/Show', ['advert' => $advert, 'plan' => $plan, 'cat' => $cat]);
     }
 
     /**
@@ -182,5 +185,38 @@ class AdvertController extends Controller
     public function destroy(Advert $advert)
     {
         //
+    }
+
+    public function approveAdvert($id)
+    {
+        if(Advert::where('id', $id)->doesntExist()){
+            return back()->with('warning', 'Record not found!');
+        }
+
+        Advert::where('id', $id)->update([
+            'status' => 1,
+        ]);
+
+        return back()->with('success', 'Advert has been approved!');
+    }
+
+    public function deleteAdvert($id)
+    {
+        if(Advert::where('id', $id)->doesntExist()){
+            return back()->with('warning', 'Record not found!');
+        }
+
+        $advert = Advert::where('id', $id)->first();
+
+        Storage::disk('public')->delete($advert->image);
+
+        if($advert->video){
+            Storage::disk('public')->delete($advert->video);
+        }
+
+        Advert::where('id', $id)->delete();
+
+        return back()->with('success', 'Advert has been deleted successfully!');
+
     }
 }

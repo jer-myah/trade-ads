@@ -54,9 +54,9 @@
                             </p>
                         </div>
                         <div class="order-3 mt-2 flex-shrink-0 w-full sm:order-2 sm:mt-0 sm:w-auto">
-                            <button @click="url='/admin/create-advert', createAdvert()" class="focus:outline-none flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-green-600 bg-white hover:bg-green-50 transition ease-out duration-500 transform hover:scale-110">
+                            <!-- <button @click="url='/admin/create-advert', createAdvert()" class="focus:outline-none flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-green-600 bg-white hover:bg-green-50 transition ease-out duration-500 transform hover:scale-110">
                                 New Advert
-                            </button>
+                            </button> -->
                         </div>
                     </div>
                 </div>
@@ -112,10 +112,10 @@
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                             <a :href="'/admin/show-advert/' + advert.id" class="text-white ml-2"><breeze-button class="p-2">Show</breeze-button></a>
-                                            <a :href="'/admin/edit-advert/' + advert.id" class="text-white ml-2"><button-edit>Edit</button-edit></a>
-                                            <a v-show="!advert.status" :href="'/admin/enable-advert/' + advert.id" class="text-green-800 hover:text-green-900 mx-2 rounded px-2 py-2 bg-green-300">Enable</a>
-                                            <a v-show="advert.status" :href="'/admin/disable-advert/' + advert.id" class="text-yellow-800 hover:text-yellow-900 mx-2 rounded px-2 py-2 bg-yellow-200">Disable</a>
-                                            <a @click="show_modal = true, url = '/admin/delete-advert/'+ advert.id" class="text-red-800 hover:text-red-900 rounded px-2 py-2 bg-red-200 cursor-pointer">Delete</a>
+                                            <a :href="'/admin/edit-advert/' + advert.id" class="text-white mx-2"><button-edit>Edit</button-edit></a>
+                                            <!-- <a v-show="!advert.status" :href="'/admin/enable-advert/' + advert.id" class="text-green-800 hover:text-green-900 mx-2 rounded px-2 py-2 bg-green-300">Enable</a>
+                                            <a v-show="advert.status" :href="'/admin/disable-advert/' + advert.id" class="text-yellow-800 hover:text-yellow-900 mx-2 rounded px-2 py-2 bg-yellow-200">Disable</a> -->
+                                            <a @click="show_modal = true, url = '/admin/delete-advert/'+ advert.id" class=""><button-delete> Delete </button-delete></a>
                                         </td>
                                     </tr>
 
@@ -139,6 +139,7 @@ import Input from '@/Components/Input'
 import BreezeValidationError from '@/Components/ValidationErrors'
 import BreezeButton from '@/Components/ButtonSmall'
 import ButtonEdit from '@/Components/ButtonEdit'
+import ButtonDelete from '@/Components/ButtonDelete'
 import TableLite from "vue3-table-lite";
 
 export default {
@@ -149,6 +150,7 @@ export default {
         BreezeValidationError,
         BreezeButton,
         ButtonEdit,
+        ButtonDelete,
         TableLite,
     },
     props: {
