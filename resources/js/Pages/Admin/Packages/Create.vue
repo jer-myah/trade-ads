@@ -1,4 +1,5 @@
 <template>
+    <validation-errors></validation-errors>
     <div>
         <Layout>
             <!-- This example requires Tailwind CSS v2.0+ -->

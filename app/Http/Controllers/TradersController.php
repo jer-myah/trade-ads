@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Account;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Models\Link;
+use App\Models\TradersLink;
+use Illuminate\Support\Facades\Auth;
 
 class TradersController extends Controller
 {
@@ -25,8 +28,10 @@ class TradersController extends Controller
      */
     public function availableLinks()
     {
-        $available_links = Link::where('status', 'active')->where('shared_with', 'both')->get();
-        return Inertia::render('Traders/AvailableLinks', ['available_links' => $available_links]);
+        $trader = Account::where('user_id', Auth::user()->id)->first(); 
+        $available_links = Link::where('status', 'active')->where('shared_with', 'voluntary')->with('advert')->get();
+        // dd($available_links);
+        return Inertia::render('Traders/AvailableLinks', ['available_links' => $available_links, 'trader' => $trader]);
     }
 
     /**
@@ -36,7 +41,9 @@ class TradersController extends Controller
      */
     public function tradeableLinks()
     {
-        return Inertia::render('Traders/TradeableLinks');
+        $trader = Account::where('user_id', Auth::user()->id)->first();
+        $tradeables = TradersLink::where('user_id', Auth::user()->id)->get();
+        return Inertia::render('Traders/TradeableLinks', ['trader' => $trader, 'tradeables' => $tradeables]);
     }
 
     /**

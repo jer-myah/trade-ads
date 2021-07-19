@@ -14,8 +14,8 @@ class Link extends Model
     protected $fillable = [
         'link',
         'advert_id',
-        'initial_duration',
-        'duration'
+        'duration',
+        'total_hours'
     ];
 
     /**
@@ -27,9 +27,9 @@ class Link extends Model
         'total_increment',
         'percentage',
         'total_decrement',
-        'top-amount',
+        'top_amount',
         'top_sale',
-        'voluntary-amount',
+        'voluntary_amount',
         'voluntary_sale',
         'shared_with'
     ];

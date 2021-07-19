@@ -3,6 +3,14 @@
         <Layout>
 
             <validation-errors />
+            <div v-if="$page.props.flash.success && toast" class="cursor-pointer px-5 py-2 shadow-lg rounded bg-green-200 text-gray-600 absolute top-8 right-0 transition duration-500 ease-out focus:opacity-0" >                
+                {{ $page.props.flash.success }}
+                <button @click="toast=false" class="p-3 focus:outline-none text-lg">x</button>
+            </div>
+            <div v-if="$page.props.flash.warning && toast" class="cursor-pointer px-5 py-2 shadow-lg rounded bg-yellow-200 text-gray-600 absolute top-8 right-0 transition duration-500 ease-out focus:opacity-0" >                
+                {{ $page.props.flash.warning }}
+                <button @click="toast=false" class="p-3 focus:outline-none text-lg">x</button>
+            </div>
             <!-- This example requires Tailwind CSS v2.0+ -->
             <!-- <div class="mb-8 border-b border-gray-200">
                 <div class="max-w-7xl mx-auto py-3 px-3 sm:px-6 lg:px-8">
@@ -75,6 +83,7 @@ export default {
 
     data() {
             return {
+                toast: true,
                 form: this.$inertia.form({
                     name: '',
                     description: ''

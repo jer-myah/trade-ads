@@ -55,6 +55,9 @@ Route::group(['middleware' => ['auth', 'verified', 'istrader']], function() {
     Route::get('/tradeable-links', [App\Http\Controllers\TradersController::class, 'tradeableLinks']);
     Route::get('/trading-section', [App\Http\Controllers\TradersController::class, 'tradingSection']);
     Route::get('/account-information', [App\Http\Controllers\TradersController::class, 'accountInformation']);
+    Route::get('/purchase-adslink/{link}', [App\Http\Controllers\LinkController::class, 'purchaseAdslink']);
+    
+
 });
 
 
@@ -107,7 +110,9 @@ Route::group(['middleware' => ['auth', 'verified', 'isadmin']], function () {
 
     Route::get('/admin/view-links', [App\Http\Controllers\LinkController::class, 'index']);
     Route::post('/admin/share-link', [App\Http\Controllers\LinkController::class, 'share']);
-});
     
+
+});
+
 
 require __DIR__.'/auth.php';

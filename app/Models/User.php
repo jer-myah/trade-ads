@@ -47,4 +47,15 @@ class User extends Authenticatable implements MustVerifyEmail
     protected function getAllUsers(){
         return $this->get();
     }
+
+    public function account()
+    {
+        return $this->hasOne(Account::class);
+    }
+
+    public function referral()
+    {
+        return $this->hasOne(Referral::class);
+    }
+
 }

@@ -35,4 +35,9 @@ class Advert extends Model
         return $this->belongsTo(AdvertPackage::class);
     }
 
+    public function link()
+    {
+        return $this->hasOne(Link::class);
+    }
+
 }

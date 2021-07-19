@@ -12,6 +12,7 @@ use Inertia\Inertia;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Carbon\Carbon;
 
 class AdvertController extends Controller
 {
@@ -100,8 +101,8 @@ class AdvertController extends Controller
 
             $link->link = Str::random(16);
             $link->advert_id = $advert->id;
-            $link->initial_duration = $plan->series;
-            $link->duration = $plan->series;
+            $link->duration = $plan->days; // number of days
+            $link->total_hours = ($plan->days * 24);
 
             $link->save();
 
@@ -109,15 +110,17 @@ class AdvertController extends Controller
         }
 
         if(Link::where('status', 'active')->where('percentage', '<', 30)->exists()){
-            $link = Link::where('status', 'active')->where('percentage', '<', 301)->first();
-            $percentage = ($link->initial_duration / ($link->duration + $plan->series)) * 100;
-
-            Link::where('id', $link->id)->increment('duration', $plan->series)->increment('total_increment', $plan->series)->increment('percentage', $percentage);
+            $link = Link::where('status', 'active')->where('percentage', '<', 30)->first();
+            Link::where('id', $link->id)->increment('total_increment', $plan->series);
+            
+            $percentage = ($link->total_increment / ($link->total_hours + $plan->series)) * 100;
+            
+            Link::where('id', $link->id)->increment('percentage', $percentage);
 
             return redirect('/user-adverts')->with('success', 'Advert was created successfully!');
         }
 
-        Link::where('status', 'active')->where('percentage', '>', 300)->update([
+        Link::where('status', 'active')->where('percentage', '>', 30)->update([
             'status' => 'in-active'
         ]);
 
@@ -125,8 +128,8 @@ class AdvertController extends Controller
 
         $link->link = Str::random(16);
         $link->advert_id = $advert->id;
-        $link->initial_duration = $plan->series;
-        $link->duration = $plan->series;
+        $link->duration = $plan->days;
+        $link->total_hours = ($plan->days * 24); // convert to days
 
         return redirect('/user-adverts')->with('success', 'Advert was created successfully!');
     }
