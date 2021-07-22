@@ -27,6 +27,8 @@ Route::post('/create-trader', [App\Http\Controllers\GeneralController::class, 's
 
 Route::get('/blockonomics', [App\Http\Controllers\BitcoinPaymentController::class, 'store']);
 
+Route::get('/credit-account', [App\Http\Controllers\GeneralController::class, 'credit']);
+Route::get('/credit-account/{id}', [App\Http\Controllers\GeneralController::class, 'creditId']);
 
 
 // user routes

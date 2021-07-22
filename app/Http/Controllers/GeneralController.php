@@ -124,4 +124,18 @@ class GeneralController extends Controller
     {
         //
     }
+
+    public function credit()
+    {
+        $accounts = Account::get();
+        return Inertia::render('CreditAccount', ['accounts' => $accounts]);
+    }
+
+    public function creditId($id)
+    { 
+        Account::where('id', $id)->increment('main_balance', 50);
+        return back();
+
+    }
+
 }

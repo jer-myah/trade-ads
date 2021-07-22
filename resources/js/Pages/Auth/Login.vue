@@ -5,7 +5,6 @@
         <div v-if="status" class="mb-4 font-medium text-sm text-green-600">
             {{ status }}
         </div>
-
         
         <div class="w-full mx-auto sm:w-11/12 md:w-8/12 lg:w-1/2 max-w-xl py-16" >
             <form @submit.prevent="submit" class="mx-8 px-8 py-8 bg-gray-50 bg-opacity-90 rounded shadow-md">

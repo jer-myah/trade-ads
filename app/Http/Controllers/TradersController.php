@@ -53,7 +53,11 @@ class TradersController extends Controller
      */
     public function tradingSection()
     {
-        return Inertia::render('Traders/TradingSection');
+        $link = Link::where('status', ['active', 'in-active'])->first();
+        $trader = Account::where('user_id', Auth::user()->id)->first();
+        $trading_links = TradersLink::where('status', 'active')->orderBy('created_at', 'desc')->get();
+        
+        return Inertia::render('Traders/TradingSection', ['link' => $link, 'trader' => $trader, 'trading_links' => $trading_links]);
     }
 
     /**
