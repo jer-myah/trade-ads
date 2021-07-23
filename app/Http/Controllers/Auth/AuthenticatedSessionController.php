@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use App\Models\Account;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -38,6 +39,13 @@ class AuthenticatedSessionController extends Controller
         $request->session()->regenerate();
         
         if($request->user()->role == 'user'){
+            if(Account::where('user_id', $request->user()->id)->doesntExist()){
+                Account::create([
+                    'user_id' => $request->user()->id,
+                    'main_balance' => 0.00,
+                    'trading_balance' => 0.00, 
+                ]);
+            }
             return redirect()->intended(RouteServiceProvider::HOME);
         }
 
@@ -47,6 +55,13 @@ class AuthenticatedSessionController extends Controller
 
         if($request->user()->role == 'top-trader' || $request->user()->role == 'voluntary-trader'){
             // return redirect()->intended(RouteServiceProvider::TOPTRADER);
+            if(Account::where('user_id', $request->user()->id)->doesntExist()){
+                Account::create([
+                    'user_id' => $request->user()->id,
+                    'main_balance' => 0.00,
+                    'trading_balance' => 0.00, 
+                ]);
+            }
             return redirect()->intended(RouteServiceProvider::TRADER);
         }
 
