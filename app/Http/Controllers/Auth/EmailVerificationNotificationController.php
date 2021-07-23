@@ -20,9 +20,9 @@ class EmailVerificationNotificationController extends Controller
             switch($request->user()->role){
                 case('user'): return redirect()->intended(RouteServiceProvider::HOME);
                     break;
-                case('voluntary-trader'): return redirect()->intended(RouteServiceProvider::VOLUNTARYTRADER);
+                case('voluntary-trader'): return redirect()->intended(RouteServiceProvider::TRADER);
                     break;
-                case('top-trader'): return redirect()->intended(RouteServiceProvider::TOPTRADER);
+                case('top-trader'): return redirect()->intended(RouteServiceProvider::TRADER);
                     break;
                 case('administrator'): return redirect()->intended(RouteServiceProvider::SUPERADMINISTRATOR);
                     break;
