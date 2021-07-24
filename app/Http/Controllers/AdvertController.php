@@ -72,22 +72,21 @@ class AdvertController extends Controller
             $image = $request->file('image')->store('adverts_images', 'public');
         }
 
-        $user_id = Auth::user()->id;
-        
-        $advert = Advert::create([
-            'advert_package_id' => $request->package_id,
-            'advert_category_id' => $request->selected,
-            'title' => $request->title,
-            'description' => $request->description,
-            'image' => $image,
-            'amount' => $plan->amount,
-            'phone' => $request->phone,
-            'user_id' => $user_id,
-        ]);
+        // $user_id = Auth::user()->id;
 
-        Account::where('user_id', Auth::user()->id)->update([
-            'main_balance' => $account->main_balance - $plan->amount,
-        ]);
+        $advert = new Advert();
+        $advert->advert_package_id = $request->package_id;
+        $advert->advert_category_id = $request->selected;
+        $advert->title = $request->title;
+        $advert->description = $request->description;
+        $advert->image = $image;
+        $advert->amount = $plan->amount;
+        $advert->phone = $request->phone;
+        $advert->user_id = Auth::user()->id;;
+        
+        $advert->save();
+
+        Account::where('user_id', Auth::user()->id)->decrement('main_balance', $plan->amount);
 
         if($request->hasFile('video')){
             $video = $request->file('video')->store('adverts_videos', 'public');
