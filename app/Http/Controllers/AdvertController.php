@@ -82,9 +82,13 @@ class AdvertController extends Controller
         $advert->image = $image;
         $advert->amount = $plan->amount;
         $advert->phone = $request->phone;
-        $advert->user_id = Auth::user()->id;;
+        $advert->user_id = Auth::user()->id;
         
-        $advert->save();
+        try{
+            $advert->save();
+        }catch (\Exception $exception){
+            return back()->with('warning', $exception);
+        }
 
         Account::where('user_id', Auth::user()->id)->decrement('main_balance', $plan->amount);
 
