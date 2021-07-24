@@ -72,6 +72,8 @@ class AdvertController extends Controller
             $image = $request->file('image')->store('adverts_images', 'public');
         }
 
+        $user_id = Auth::user()->id;
+        
         $advert = Advert::create([
             'advert_package_id' => $request->package_id,
             'advert_category_id' => $request->selected,
@@ -80,7 +82,7 @@ class AdvertController extends Controller
             'image' => $image,
             'amount' => $plan->amount,
             'phone' => $request->phone,
-            'user_id' => Auth::user()->id,
+            'user_id' => $user_id,
         ]);
 
         Account::where('user_id', Auth::user()->id)->update([
