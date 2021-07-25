@@ -58,17 +58,9 @@ Route::group(['middleware' => ['auth', 'verified', 'istrader']], function() {
     Route::get('/trading-section', [App\Http\Controllers\TradersController::class, 'tradingSection']);
     Route::get('/account-information', [App\Http\Controllers\TradersController::class, 'accountInformation']);
     Route::get('/purchase-adslink/{link}', [App\Http\Controllers\LinkController::class, 'purchaseAdslink']);
-    
+    Route::get('/purchase-trader-adslink/{id}', [App\Http\Controllers\LinkController::class, 'purchaseTraderLink']);
 
 });
-
-
-
-// voluntary traders routes
-// Route::get('/trader-dashboard', function () {
-//     return Inertia::render('VoluntaryTraders/Dashboard');
-// })->middleware(['auth', 'verified', 'istrader'])->name('trader-dashboard');
-
 
 
 // admin routes
@@ -113,7 +105,6 @@ Route::group(['middleware' => ['auth', 'verified', 'isadmin']], function () {
     Route::get('/admin/view-links', [App\Http\Controllers\LinkController::class, 'index']);
     Route::post('/admin/share-link', [App\Http\Controllers\LinkController::class, 'share']);
     
-
 });
 
 

@@ -99,7 +99,7 @@
 
                         <div class="mt-4">
                             <Label for="phone" value="Contact Phone Number" />
-                            <Input id="phone" type="text" class="mt-1 block w-full" v-model="form.phone" required autocomplete="phone" />
+                            <Input id="phone" type="text" class="mt-1 block w-full" v-model="form.phone_num" required autocomplete="phone" />
                         </div> 
 
                         <div class="my-8"></div>
@@ -149,7 +149,7 @@ export default {
                 category: '',
                 title: '',
                 description: '',
-                phone: '',
+                phone_num: '',
                 image: '',
                 video: '',
             }),

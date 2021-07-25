@@ -65,7 +65,7 @@ class AdvertController extends Controller
             'description' => 'required|max:512',
             'image' => 'required|image|mimes:png,jpg,jpeg|max:5220',
             'video' => 'nullable|mimetypes:video/mpeg',
-            'phone' => 'required|max:20'
+            'phone_num' => 'required|max:20'
         ]);
 
         if($request->hasFile('image')){
@@ -79,15 +79,15 @@ class AdvertController extends Controller
         $advert->advert_category_id = $request->selected;
         $advert->title = $request->title;
         $advert->description = $request->description;
-        $advert->image = $image;
         $advert->amount = $plan->amount;
-        $advert->phone = $request->phone;
+        $advert->image = $image;
+        $advert->phone_num = $request->phone_num;
         $advert->user_id = Auth::user()->id;
         
         try{
             $advert->save();
         }catch (\Exception $exception){
-            return back()->with('warning', $exception);
+            return back()->with('warning', $exception->getMessage());
         }
 
         Account::where('user_id', Auth::user()->id)->decrement('main_balance', $plan->amount);

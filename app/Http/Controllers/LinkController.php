@@ -188,7 +188,87 @@ class LinkController extends Controller
             return back()->with('warning', 'You may have to wait for another link to be shared.');
         }     
         
+    }
 
+    public function purchaseTraderLink($id)
+    {
+        // check if link pass in exists
+        if(TradersLink::where('trader_link', $id)->doesntExist()){
+            return back()->with('error', 'There seems to be a problem with this request!');
+        }
+
+        //check the link in both traderslink and links table
+        $trader_link = TradersLink::where('trader_link', $id)->first();
+        if(Link::where('id', $trader_link->link_id)->doesntExist()){
+            return back()->with('error', 'There seems to be an issue with this request.');
+        }
+        
+        $link = Link::where('id', $trader_link->link_id)->first();
+        
+        // disallow traders to purchase their own link
+        if(TradersLink::where(['user_id' => Auth::user()->id, 'link_id' => $link->id, 'trader_link' => $trader_link->link_id])->exists()){
+            return back()->with('warning', 'Transaction declined! You attempt to purchase a link generated for you!');
+        }
+
+        // disallow traders who have purchase already
+        if(TradersPayment::where(['link_id' => $trader_link->link_id, 'buyer_id' => Auth::user()->id])->exists()){
+            return back()->with('warning', 'Transaction declined! You already have made purchase on an active link!');
+        }
+
+        // check if trader has made purchase of same link from admin
+        if(PaymentToAdmin::where(['user_id' => Auth::user()->id, 'link_id' => $link->id])->exists()){
+            return back()->with('warning', 'Transaction declined! It seems you have tradeable link already!');
+        }
+    
+        // check if allowed number of sale has been reached
+        if($trader_link->sale_count >= $trader_link->num_sale){
+            return back()->with('error', 'Maximum number of payment has been reached for this user!');
+        }
+
+        //user account credit and debit 
+        $user = Account::where('user_id', Auth::user()->id)->first();
+        if($user->main_balance < $trader_link->unit_sale){            
+            return back()->with('error', 'You do not have sufficient fund to complete this transaction!');
+        }
+
+        //
+
+        // deduct unit sale from auth user's account
+        // $new_main_balance = $user->main_balance - $trader_link->unit_sale;
+        Account::where('user_id', Auth::user()->id)->decrement('main_balance', $trader_link->unit_sale);
+
+        // add unit sale to the trader's with the link
+        $seller = Account::where('user_id', $trader_link->user_id)->first();
+        // $new_transaction_balance = $seller->transaction_balance + $trader_link->unit_sale;
+        Account::where('user_id', $trader_link->user_id)->increment('transaction_balance', $trader_link->unit_sale);
+
+        // update the sale count
+        // $add_count = $trader_link->sale_count + 1;
+        TradersLink::where('trader_link', $trader_link->trader_link)->increment('sale_count');
+
+        // record the transaction
+        $payment = new TradersPayment;
+        $payment->link_id = $trader_link->link_id;
+        $payment->trader_link = $trader_link->trader_link;
+        $payment->buyer_id = Auth::user()->id;
+        $payment->seller_id = $seller->user_id;
+        $payment->amount = $trader_link->unit_sale;
+
+        $payment->save();
+
+        // generate code/link for voluntary traders
+        $traders_link = new TradersLink;
+            
+        $traders_link->user_id = Auth::user()->id;
+        $traders_link->link_id = $trader_link->link_id;
+        $traders_link->trader_link = Str::random(16);
+        $traders_link->num_sale = $link->voluntary_sale;
+        $traders_link->unit_sale = $link->voluntary_amount;
+        $traders_link->sale_count = 0;
+
+        $traders_link->save();
+        
+        return redirect()->back()->with('success', 'Payment was successful');
 
     }
 

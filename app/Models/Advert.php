@@ -21,8 +21,8 @@ class Advert extends Model
         'description',
         'amount',
         'image',
-        'phone',
-        'user_id',
+        'phone_num',
+        'user_id'
     ];
 
     public function advertCategory()
