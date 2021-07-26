@@ -21,9 +21,9 @@ class VerifyEmailController extends Controller
             switch($request->user()->role){
                 case('user'): return redirect()->intended(RouteServiceProvider::HOME.'?verified=1');
                     break;
-                case('voluntary-trader'): return redirect()->intended(RouteServiceProvider::VOLUNTARYTRADER.'?verified=1');
+                case('voluntary-trader'): return redirect()->intended(RouteServiceProvider::TRADER.'?verified=1');
                     break;
-                case('top-trader'): return redirect()->intended(RouteServiceProvider::TOPTRADER.'?verified=1');
+                case('top-trader'): return redirect()->intended(RouteServiceProvider::TRADER.'?verified=1');
                     break;
                 case('administrator'): return redirect()->intended(RouteServiceProvider::SUPERADMINISTRATOR.'?verified=1');
                     break;
@@ -40,9 +40,9 @@ class VerifyEmailController extends Controller
         switch($request->user()->role){
             case('user'): return redirect()->intended(RouteServiceProvider::HOME.'?verified=1');
                 break;
-            case('voluntary-trader'): return redirect()->intended(RouteServiceProvider::VOLUNTARYTRADER.'?verified=1');
+            case('voluntary-trader'): return redirect()->intended(RouteServiceProvider::TRADER.'?verified=1');
                 break;
-            case('top-trader'): return redirect()->intended(RouteServiceProvider::TOPTRADER.'?verified=1');
+            case('top-trader'): return redirect()->intended(RouteServiceProvider::TRADER.'?verified=1');
                 break;
             case('administrator'): return redirect()->intended(RouteServiceProvider::SUPERADMINISTRATOR.'?verified=1');
                 break;

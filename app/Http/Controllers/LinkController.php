@@ -194,13 +194,13 @@ class LinkController extends Controller
     {
         // check if link pass in exists
         if(TradersLink::where('trader_link', $id)->doesntExist()){
-            return back()->with('error', 'There seems to be a problem with this request!');
+            return back()->with('warning', 'There seems to be a problem with this request!');
         }
 
         //check the link in both traderslink and links table
         $trader_link = TradersLink::where('trader_link', $id)->first();
         if(Link::where('id', $trader_link->link_id)->doesntExist()){
-            return back()->with('error', 'There seems to be an issue with this request.');
+            return back()->with('warning', 'There seems to be an issue with this request.');
         }
         
         $link = Link::where('id', $trader_link->link_id)->first();
@@ -222,29 +222,27 @@ class LinkController extends Controller
     
         // check if allowed number of sale has been reached
         if($trader_link->sale_count >= $trader_link->num_sale){
-            return back()->with('error', 'Maximum number of payment has been reached for this user!');
+            return back()->with('warning', 'Maximum number of payment has been reached for this user!');
         }
 
         //user account credit and debit 
         $user = Account::where('user_id', Auth::user()->id)->first();
         if($user->main_balance < $trader_link->unit_sale){            
-            return back()->with('error', 'You do not have sufficient fund to complete this transaction!');
+            return back()->with('warning', 'You do not have sufficient fund to complete this transaction!');
         }
-
-        //
 
         // deduct unit sale from auth user's account
         // $new_main_balance = $user->main_balance - $trader_link->unit_sale;
         Account::where('user_id', Auth::user()->id)->decrement('main_balance', $trader_link->unit_sale);
 
-        // add unit sale to the trader's with the link
+        // add unit sale to the trader account who owns the link
         $seller = Account::where('user_id', $trader_link->user_id)->first();
         // $new_transaction_balance = $seller->transaction_balance + $trader_link->unit_sale;
-        Account::where('user_id', $trader_link->user_id)->increment('transaction_balance', $trader_link->unit_sale);
+        Account::where('user_id', $trader_link->user_id)->increment('trading_balance', $trader_link->unit_sale);
 
         // update the sale count
         // $add_count = $trader_link->sale_count + 1;
-        TradersLink::where('trader_link', $trader_link->trader_link)->increment('sale_count');
+        TradersLink::where('trader_link', $id)->increment('sale_count');
 
         // record the transaction
         $payment = new TradersPayment;
@@ -268,7 +266,7 @@ class LinkController extends Controller
 
         $traders_link->save();
         
-        return redirect()->back()->with('success', 'Payment was successful');
+        return back()->with('success', 'Payment was successful');
 
     }
 

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Models\Link;
 use App\Models\TradersLink;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 class TradersController extends Controller
@@ -67,7 +68,8 @@ class TradersController extends Controller
      */
     public function accountInformation()
     {
-        return Inertia::render('Traders/AccountInformation');
+        $user = User::where('id', Auth::user()->id)->with('referral')->first();
+        return Inertia::render('Traders/AccountInformation', ['user' => $user]);
     }
 
     /**

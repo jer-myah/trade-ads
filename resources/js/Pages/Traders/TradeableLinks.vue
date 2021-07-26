@@ -42,13 +42,13 @@
                                                 Link
                                             </th>
                                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                                No. of Transaction
+                                                No. of Usage
                                             </th>
                                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                                 Amount(&dollar;)
                                             </th>
                                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                                Status
+                                                Count
                                             </th>
                                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                                 Actions
@@ -78,10 +78,10 @@
                                                 </span>
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 capitalize">
-                                                {{ tradeable.status }}
+                                                {{ tradeable.sale_count }}
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 font-medium">
-                                                <button-small @click="amount = tradeable.amount, link = tradeable.link, show_purchase = true">Purchase</button-small>
+                                                <button-small></button-small>
                                             </td>
                                         </tr>
                                     </tbody>

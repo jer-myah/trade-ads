@@ -13,41 +13,41 @@
             <div class="px-4 py-5 sm:px-6 flex justify-between">
                 <div>
                     <h3 class="text-lg leading-6 font-medium text-gray-900">
-                        Advert Information
+                        Personal Information
                     </h3>
                     <p class="mt-1 max-w-2xl text-sm text-gray-500">
-                        Detail Information for advert 
+                        Detail Information for user 
                     </p>
                 </div>
 
                 <div>
-                    <edit-button >Create Link</edit-button>
+                    <edit-button >Edit </edit-button>
                 </div>
             </div>
             <div class="border-t border-gray-200">
                 <dl>
                     <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                         <dt class="text-sm font-medium text-gray-500">
-                            Advert Title
+                            Full Name
                         </dt>
                         <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                            title 
+                            {{ user.first_name }} {{ user.last_name }}
                         </dd>
                     </div>
                     <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                         <dt class="text-sm font-medium text-gray-500">
-                            Advert Description
+                            Email 
                         </dt>
                         <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                            description 
+                            {{ user.email }}
                         </dd>
                     </div>
                     <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                         <dt class="text-sm font-medium text-gray-500">
-                            Advert Image
+                            Referral
                         </dt>
                         <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                            image 
+                            <span v-if="user.referral != null"> {{ user.referral.ref_code }} </span>
                         </dd>
                     </div>
                     <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -79,6 +79,7 @@ export default {
     },
     props: {
         available_links: Object,
+        user: Object,
     }
 }
 </script>
