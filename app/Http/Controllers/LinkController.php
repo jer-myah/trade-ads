@@ -9,6 +9,7 @@ use Inertia\Inertia;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\PaymentToAdmin;
+use App\Models\Referral;
 use App\Models\TradersLink;
 use App\Models\TradersPayment;
 use App\Models\UserReferred;
@@ -105,9 +106,17 @@ class LinkController extends Controller
             return back()->with('warning', 'You already made purchase from the trading section!');
         }
         
+        // user has never referred any user
+        if(UserReferred::where('user_id', Auth::user()->id)->exists()){
+            
+        }        
+
         $user_referred = UserReferred::where('user_id', Auth::user()->id)->first(); // counter must be greater than 20 for user to repurchase same link again
         $payment_count = PaymentToAdmin::where(['user_id' => Auth::user()->id, 'link_id' => $link->id])->count();
         
+        if(UserReferred::where('user_id', Auth::user()->id)->doesntExist() && $payment_count == 1){
+            return back()->with('warning', 'Oops!!! You cannot make another payment!');
+        }
         
         // check if user had made payment for the particular link previously 
         // and also check if the referrals counter is up to 20
