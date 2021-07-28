@@ -193,7 +193,7 @@
                                             <div class="text-sm text-gray-500 capitalize">{{ current_link.shared_with }} </div>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
-                                            <div class="text-sm text-gray-500" v-if="current_link.advert">{{ current_link.advert.title }} </div>
+                                            <!-- <div class="text-sm text-gray-500" >{{ current_link.advert.title }} </div> -->
                                         </td>                                    
                                         <!-- <td class="px-6 py-4 whitespace-nowrap">
                                             <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800 uppercase">
