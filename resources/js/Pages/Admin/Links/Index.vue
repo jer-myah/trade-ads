@@ -194,15 +194,7 @@
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             <!-- <div class="text-sm text-gray-500" >{{ current_link.advert.title }} </div> -->
-                                        </td>                                    
-                                        <!-- <td class="px-6 py-4 whitespace-nowrap">
-                                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800 uppercase">
-                                                Enabled {{ current_link.advert.title }}
-                                            </span>
-                                            <span  class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800 uppercase">
-                                                Disabled
-                                            </span>
-                                        </td> -->
+                                        </td> 
                                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                             <breeze-button @click="form.id = current_link.id, share_modal = true" >Share</breeze-button>
                                             <a @click="show_modal = true, url = '/admin/delete-link/'+ link.id" class="mx-2">

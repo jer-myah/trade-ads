@@ -74,9 +74,9 @@
                                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                                 Advert
                                             </th>
-                                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            <!-- <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                                 Time Left
-                                            </th>
+                                            </th> -->
                                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                                 Amount(&dollar;)
                                             </th>
@@ -100,12 +100,12 @@
                                             <td class="px-6 py-4 whitespace-nowrap">
                                                 <div class="text-sm text-gray-500"> <img :src="'storage/'+available.advert.image" alt="" width="50"> </div>
                                             </td>
-                                            <td class="px-6 py-4 whitespace-nowrap">
+                                            <!-- <td class="px-6 py-4 whitespace-nowrap">
                                                 <span class="text-sm text-gray-500">
                                                     {{ (moment.duration((moment(available.created_at).add(available.total_hours, 'h')).diff(moment()))).days() }} Day(s)
                                                     {{ (moment.duration((moment(available.created_at).add(available.total_hours, 'h')).diff(moment()))).hours() }} Hour(s)
                                                 </span>
-                                            </td>
+                                            </td> -->
                                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 capitalize">
                                                 &dollar;{{ available.amount }}
                                             </td>
