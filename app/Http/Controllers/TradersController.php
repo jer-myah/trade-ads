@@ -3,11 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Account;
+use App\Models\BitcoinPayment;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Models\Link;
 use App\Models\TradersLink;
+use App\Models\TradersPayment;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 class TradersController extends Controller
@@ -19,7 +22,8 @@ class TradersController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Traders/Dashboard');
+        $total_links = TradersLink::where('user_id', Auth::user()->id)->count();
+        return Inertia::render('Traders/Dashboard', ['total_links' => $total_links]);
     }
 
     /**
@@ -43,7 +47,7 @@ class TradersController extends Controller
     public function tradeableLinks()
     {
         $trader = Account::where('user_id', Auth::user()->id)->first();
-        $tradeables = TradersLink::where('user_id', Auth::user()->id)->get();
+        $tradeables = TradersLink::where('user_id', Auth::user()->id)->where('status', 'active')->get();
         return Inertia::render('Traders/TradeableLinks', ['trader' => $trader, 'tradeables' => $tradeables]);
     }
 
@@ -54,9 +58,27 @@ class TradersController extends Controller
      */
     public function tradingSection()
     {
-        $link = Link::where('status', ['active', 'in-active'])->first();
         $trader = Account::where('user_id', Auth::user()->id)->first();
-        $trading_links = TradersLink::where('status', 'active')->orderBy('created_at', 'desc')->get();
+
+        if(Link::where('status', ['active', 'in-active'])->doesntExist()){
+            return back()->with('warning', 'No Link available presently!');
+        }
+
+        $link = Link::where('status', ['active', 'in-active'])->first();
+        $expiry_date = new Carbon($link->created_at->addHours($link->total_hours));
+        if(Carbon::now() > $expiry_date){
+            Link::where('id', $link->id)->update([
+                'status' => 'expired'
+            ]);
+            while(TradersLink::where('link_id', $link->id)->where('status', 'active')->exists()){
+                TradersLink::where('link_id', $link->id)->where('status', 'active')->update([
+                    'status' => 'in-active'
+                ]);
+            }
+        }
+        
+        // if(TradersLink::where(''))
+        $trading_links = TradersLink::where('link_id', $link->id)->where('status', 'active')->orderBy('created_at', 'desc')->get();
         
         return Inertia::render('Traders/TradingSection', ['link' => $link, 'trader' => $trader, 'trading_links' => $trading_links]);
     }

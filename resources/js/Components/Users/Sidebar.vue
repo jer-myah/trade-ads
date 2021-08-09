@@ -36,7 +36,7 @@
                         <span>Adverts </span>
                     </a>
                 </li>
-                <li class="transition ease-out duration-200 transform hover:scale-110">
+                <!-- <li class="transition ease-out duration-200 transform hover:scale-110">
                     <a href="#" class="flex items-center space-x-3 text-gray-700 p-2 rounded-md font-medium hover:bg-gray-200 focus:bg-gray-200 focus:shadow-outline">
                         <span class="text-gray-600">
                             <svg class="h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -45,8 +45,8 @@
                         </span>
                         <span>Profile</span>
                     </a>
-                </li>
-                <li class="transition ease-out duration-200 transform hover:scale-110">
+                </li> -->
+                <!-- <li class="transition ease-out duration-200 transform hover:scale-110">
                     <a href="" class="flex items-center space-x-3 text-gray-700 p-2 rounded-md font-medium hover:bg-gray-200 focus:bg-gray-200 focus:shadow-outline">
                         <span class=" text-gray-600">
                             <svg class="h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -55,7 +55,7 @@
                         </span>
                         <span>Notification</span>
                     </a>
-                </li>
+                </li> -->
                 <li class="transition ease-out duration-200 transform hover:scale-110">
                     <a href="/user-account-information" class="flex items-center space-x-3 text-gray-700 p-2 rounded-md font-medium hover:bg-gray-200 focus:bg-gray-200 focus:shadow-outline">
                         <span class="text-gray-600">
@@ -76,7 +76,7 @@
                         <span>Settings</span>
                     </a>
                 </li>
-                <li class="transition ease-out duration-200 transform hover:scale-110">
+                <!-- <li class="transition ease-out duration-200 transform hover:scale-110">
                     <a href="#" class="flex items-center space-x-3 text-gray-700 p-2 rounded-md font-medium hover:bg-gray-200 focus:bg-gray-200 focus:shadow-outline">
                         <span class="text-gray-600">
                             <svg class="h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -85,7 +85,7 @@
                         </span>
                         <span>Change password</span>
                     </a>
-                </li>
+                </li> -->
                 
             </ul>
         </div>

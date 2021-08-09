@@ -10,10 +10,7 @@ Route::group(['middleware' => ['auth', 'verified', 'isuser']], function () {
         return Inertia::render('Users/Dashboard');
     })->name('dashboard');
 
-
-    Route::get('/user-account-information', function () {
-        return Inertia::render('Users/AccountInformation');
-    });
+    Route::get('/user-account-information', [App\Http\Controllers\UserController::class, 'accountInformation']);
 
     Route::get('/user-adverts', [App\Http\Controllers\AdvertController::class, 'index']);
     Route::get('/user/place-advert', [App\Http\Controllers\AdvertController::class, 'create']);

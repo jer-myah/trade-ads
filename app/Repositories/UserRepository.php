@@ -3,9 +3,11 @@
 namespace App\Repositories;
 
 use App\Interfaces\UserRepositoryInterface;
+use App\Models\BitcoinPayment;
 use App\Models\User;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserRepository implements UserRepositoryInterface
 {
@@ -32,6 +34,17 @@ class UserRepository implements UserRepositoryInterface
         } catch(\Exception $e) {
             return redirect()->back();
         }
+    }
+
+    public function getAccountInformation()
+    {
+        try{ 
+            $user = User::where('id', Auth::user()->id)->with('referral')->first();
+            $payments = BitcoinPayment::where('email', Auth::user()->email)->get();
+            return Inertia::render('Users/AccountInformation', ['user' => $user, 'payments' => $payments]); 
+        }catch(\Exception $exception){
+            return back()->with('warning', 'Unable to get account information!');
+        }   
     }
     
 

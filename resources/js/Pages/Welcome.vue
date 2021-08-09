@@ -15,7 +15,7 @@
                             <h3 class="text-gray-700 uppercase">{{ advert.title }}</h3>
                             <div class="flex justify-between pt-2">
                                 <span class="text-gray-500 mt-2">Price: &dollar;{{ advert.amount }} </span>
-                                <button class="py-1 px-3 text-gray-100 rounded-lg bg-brown-300">View</button>
+                                <button @click="advert_id = advert.id, showDetails()" class="py-1 px-3 text-gray-100 rounded-lg bg-brown-300 focus:outline-none">View</button>
                             </div>
                             
                         </div>
@@ -225,6 +225,18 @@ import InertiaLink from '@/Components/NavLink'
             phpVersion: String,
             adverts: Object
         },
+
+        data () {
+            return {
+                advert_id: ''
+            }
+        },
+
+        methods: {
+            showDetails() {
+                this.$inertia.get('/advert-details/'+this.advert_id)
+            }
+        }
 
     }
 </script>

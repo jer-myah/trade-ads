@@ -106,7 +106,7 @@
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap">
                                                 <span class="text-sm text-gray-500">
-                                                    {{ trading_link.num_sale }}
+                                                    {{ trading_link.sale_count }}
                                                 </span>
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap">
@@ -167,17 +167,16 @@ export default {
     },
     setup(props) {
         const countDown = reactive({
-            inSeconds: 0,
+            inSeconds: moment.now,
         });
         
-        setInterval(() => {
+        setInterval(() => {            
             countDown.inSeconds = moment.duration((moment(props.link.created_at).add(props.link.total_hours, 'h')).diff(moment())).seconds();
-            // if(props.link.total_hours <= 0){
-
-            // }
+            
         }, 1000);
 
         return { countDown  }
-    }
+    },
+    
 }
 </script>

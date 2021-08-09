@@ -193,7 +193,7 @@
                                             <div class="text-sm text-gray-500 capitalize">{{ current_link.shared_with }} </div>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
-                                            <!-- <div class="text-sm text-gray-500" >{{ current_link.advert.title }} </div> -->
+                                            <div class="text-sm text-gray-500" >{{ current_link.advert.title }} </div>
                                         </td> 
                                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                             <breeze-button @click="form.id = current_link.id, share_modal = true" >Share</breeze-button>
@@ -218,17 +218,14 @@
                                             {{ link.duration }}
                                             </span>
                                         </td>
-                                    
                                         <td class="px-6 py-4 whitespace-nowrap">
-                                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800 uppercase">
-                                                Enabled
-                                            </span>
-                                            <span  class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800 uppercase">
-                                                Disabled
-                                            </span>
+                                            <div class="text-sm text-gray-500 capitalize">{{ link.shared_with }} </div>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <div class="text-sm text-gray-500">{{ link.advert.title }} </div>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                            <breeze-button>Share</breeze-button>
+                                            <breeze-button class="capitalize">{{ link.status }}</breeze-button>
                                             <a @click="show_modal = true, url = '/admin/delete-link/'+ link.id" class="mx-2">
                                                 <button-delete>Delete</button-delete>
                                             </a>

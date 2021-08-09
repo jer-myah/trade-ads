@@ -26,6 +26,16 @@ interface UserRepositoryInterface
     public function getUserById($id);
 
     /**
+     * Get User Account Information
+     * 
+     * @param   integer     $id
+     * 
+     * @method  GET /account-information
+     * @access  public
+     */
+    public function getAccountInformation();
+
+    /**
      * Create | Update user
      * 
      * @param   \App\Http\Requests\UserRequest    $request

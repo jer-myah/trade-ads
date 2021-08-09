@@ -67,16 +67,16 @@
                     </a>
                 </li>
                 <li class="transition ease-out duration-200 transform hover:scale-110">
-                    <a href="#" class="flex items-center space-x-3 text-gray-700 p-2 rounded-md font-medium hover:bg-gray-200 focus:bg-gray-200 focus:shadow-outline">
+                    <a href="/profile" class="flex items-center space-x-3 text-gray-700 p-2 rounded-md font-medium hover:bg-gray-200 focus:bg-gray-200 focus:shadow-outline">
                         <span class="text-gray-600">
                             <svg class="h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path>
                             </svg>
                         </span>
-                        <span>Settings</span>
+                        <span>Profile</span>
                     </a>
                 </li>
-                <li class="transition ease-out duration-200 transform hover:scale-110">
+                <!-- <li class="transition ease-out duration-200 transform hover:scale-110">
                     <a href="#" class="flex items-center space-x-3 text-gray-700 p-2 rounded-md font-medium hover:bg-gray-200 focus:bg-gray-200 focus:shadow-outline">
                         <span class="text-gray-600">
                             <svg class="h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -85,7 +85,7 @@
                         </span>
                         <span>Change password</span>
                     </a>
-                </li>
+                </li> -->
                 
             </ul>
         </div>

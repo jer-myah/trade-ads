@@ -1,4 +1,14 @@
 <template>
+        <div v-if="$page.props.flash.success && toast" class="cursor-pointer px-5 py-2 shadow-lg rounded bg-green-200 text-gray-600 absolute top-8 right-0 transition duration-500 ease-out focus:opacity-0" >                
+            {{ $page.props.flash.success }}
+            <button @click="toast=false" class="p-3 focus:outline-none text-lg">x</button>
+        </div>
+
+        <div v-if="$page.props.flash.warning && toast" class="cursor-pointer px-5 py-2 shadow-lg rounded bg-yellow-200 text-gray-600 absolute top-8 right-0 transition duration-500 ease-out focus:opacity-0" >                
+            {{ $page.props.flash.warning }}
+            <button @click="toast=false" class="p-3 focus:outline-none text-lg">x</button>
+        </div>
+
     <Layout>
         <div class="container">
             <h2 class="pl-5 font-semibold text-xl text-gray-800 leading-tight">
@@ -14,7 +24,7 @@
                     <div class="p-5 bg-green-100 rounded shadow-sm">                        
                         <div class="flex flex-col items-center pt-1">
                             <div class="text-base text-gray-400 ">Total Links</div>
-                            <div class="text-2xl font-bold text-gray-900 ">9850</div>
+                            <div class="text-2xl font-bold text-gray-900 ">{{ total_links }}</div>
                         </div>
                     </div>
 
@@ -53,7 +63,14 @@
         props: {
             auth: Object,
             errors: Object,
+            total_links: Object,
         },
+
+        data() {
+            return{ 
+                toast: true
+            }
+        }
     }
 </script>
 

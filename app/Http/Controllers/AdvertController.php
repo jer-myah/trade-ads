@@ -24,11 +24,11 @@ class AdvertController extends Controller
     public function index()
     {
         if(Auth::user()->role == 'administrator'){
-            $adverts = Advert::all();
+            $adverts = Advert::orderBy('created_at', 'DESC')->get();
             return Inertia::render('Admin/Adverts/Index', ['adverts' => $adverts]);
         }
         
-        $adverts = Advert::where('user_id', Auth::user()->id)->get();
+        $adverts = Advert::where('user_id', Auth::user()->id)->orderBy('created_at', 'DESC')->get();
         return Inertia::render('Users/Adverts', ['adverts' => $adverts]);
     }
 
@@ -102,6 +102,7 @@ class AdvertController extends Controller
 
         // create link
         if(Link::count() < 1){
+            
             $link = new Link();
 
             $link->link = Str::random(16);
@@ -114,9 +115,26 @@ class AdvertController extends Controller
             return redirect('/user-adverts')->with('success', 'Advert was created successfully!');
         }
 
+        // create link when no link is active
+        if(Link::where('status', 'active')->doesntExist()){
+
+            $link = new Link();
+
+            $link->link = Str::random(16);
+            $link->advert_id = $advert->id;
+            $link->duration = $plan->days;
+            $link->total_hours = ($plan->days * 24); // convert to days
+
+            $link->save();
+
+            return redirect('/user-adverts')->with('success', 'Advert was created successfully!');
+
+        }
+
         if(Link::where('status', 'active')->where('percentage', '<', 30)->exists()){
+            
             $link = Link::where('status', 'active')->where('percentage', '<', 30)->first();
-            Link::where('id', $link->id)->increment('total_increment', $plan->series);
+            Link::where('id', $link->id)->increment('total_increment', $plan->series)->increment('total_hours', $plan->series);
             
             $percentage = ($link->total_increment / ($link->total_hours + $plan->series)) * 100;
             
@@ -125,18 +143,21 @@ class AdvertController extends Controller
             return redirect('/user-adverts')->with('success', 'Advert was created successfully!');
         }
 
-        Link::where('status', 'active')->where('percentage', '>', 30)->update([
-            'status' => 'in-active'
-        ]);
+        if(Link::where('status', 'active')->where('percentage', '>', 30)){
+            
+            Link::where('status', 'active')->where('percentage', '>', 30)->update([
+                'status' => 'in-active'
+            ]);
 
-        $link = new Link();
+            $link = new Link();
 
-        $link->link = Str::random(16);
-        $link->advert_id = $advert->id;
-        $link->duration = $plan->days;
-        $link->total_hours = ($plan->days * 24); // convert to days
+            $link->link = Str::random(16);
+            $link->advert_id = $advert->id;
+            $link->duration = $plan->days;
+            $link->total_hours = ($plan->days * 24); // convert to days
 
-        return redirect('/user-adverts')->with('success', 'Advert was created successfully!');
+            return redirect('/user-adverts')->with('success', 'Advert was created successfully!');
+        }
     }
 
     /**
@@ -227,4 +248,15 @@ class AdvertController extends Controller
         return back()->with('success', 'Advert has been deleted successfully!');
 
     }
+
+    public function advertDetails($advert_id)
+    {
+        if(Advert::where('id', $advert_id)->doesntExist()){
+            return back()->with('warning', 'Unable to find the resource.');
+        }
+
+        $advert = Advert::where('id', $advert_id)->first();
+        return Inertia::render('AdvertDetails', ['advert' => $advert]);
+    }
+    
 }

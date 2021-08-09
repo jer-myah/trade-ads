@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Inertia\Inertia;
 use App\Interfaces\UserRepositoryInterface;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -91,7 +92,7 @@ class UserController extends Controller
      */
     // public function index()
     // {
-    //     $users = $this->userRepository->all();
+    //     Interfaceall();
 
     //     return Inertia::render('Admin/Users/Index', ['users' => $users]);
     // }
@@ -127,23 +128,22 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    // public function show($id)
-    // {
-    //     $user = User::where('id', $id)->first();
-        // $user = $this->userRepository->findById($id);
-    //     return Inertia::render('Admin/Users/Show', ['user' => $user]);
-    // }
+    public function accountInformation() {
+        return $this->userInterface->getAccountInformation();
+    }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
+     * Show the user profile.
+     * 
+     * 
      * @return \Illuminate\Http\Response
      */
-    // public function edit($id)
-    // {
-        //
-    // }
+    public function profile()
+    {
+        $user = User::where('id', Auth::user()->id)->with('referral')->first();
+        
+        return Inertia::render('Traders/Profile', ['user' => $user]);
+    }
 
     /**
      * Update the specified resource in storage.

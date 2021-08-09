@@ -28,10 +28,10 @@ class LinkController extends Controller
             return Inertia::render('Admin/Links/Index');
         }
 
-        $links = Link::where('status', '!=', 'active')->with('advert')->get();
-
+        $links = Link::where('status', 'in-active')->orWhere('status', 'expired')->with('advert')->get();
+        
         $current_link = Link::where('status', 'active')->with('advert')->first();
-
+        
         return Inertia::render('Admin/Links/Index', ['links' => $links, 'current_link' => $current_link]);
     }
 
