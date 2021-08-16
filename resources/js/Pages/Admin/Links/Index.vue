@@ -184,9 +184,8 @@
                                             <div class="text-sm text-gray-500">{{ current_link.link }} </div>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
-                                            <!-- <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800"> -->
                                             <span class="text-sm text-gray-500">
-                                            <!-- {{ current_link.duration }} -->
+                                            {{ current_link.duration }}
                                             </span>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
@@ -202,7 +201,7 @@
                                             </a>
                                         </td>
                                     </tr>
-                                    
+<!--                                     
                                     <tr v-for="(link, index) in links" :key="link.id">
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             <div class="text-sm text-gray-500">
@@ -213,10 +212,10 @@
                                             <div class="text-sm text-gray-500">{{ link.link }} </div>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
-                                            <!-- <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800"> -->
-                                            <span class="text-sm text-gray-500">
+                                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800"> -->
+                                            <!-- <span class="text-sm text-gray-500"> -->
                                             <!-- {{ link.duration }} -->
-                                            </span>
+                                            <!-- </span>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             <div class="text-sm text-gray-500 capitalize">{{ link.shared_with }} </div>
@@ -230,9 +229,8 @@
                                                 <button-delete>Delete</button-delete>
                                             </a>
                                         </td>
-                                    </tr>
+                                    </tr> -->
 
-                                    <!-- More people... -->
                                 </tbody>
                             </table>
 
