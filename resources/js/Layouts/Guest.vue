@@ -37,17 +37,21 @@
                             </button>
                         </div>
                         <div class="block relative">
-                            <button type="button" class="inline-flex items-center relative py-3 px-5 border rounded-full hover:shadow-lg focus:outline-none">
-                                <a href="/login"> Login </a>
-                            </button>
+                            <a href="/login">
+                                <button type="button" class="inline-flex items-center relative py-3 px-5 border rounded-full hover:shadow-lg focus:outline-none">
+                                    Login 
+                                </button>
+                            </a>
                         </div>
                     </div>
 
                     <div class="block">
                         <div class="inline relative">
-                            <button type="button" class="inline-flex items-center relative py-3 px-5 border rounded-full hover:shadow-lg focus:outline-none">
-                                <a href="/register"> Register </a>
-                            </button>
+                            <a href="/register">
+                                <button type="button" class="inline-flex items-center relative py-3 px-5 border rounded-full hover:shadow-lg focus:outline-none">
+                                    Register 
+                                </button>
+                            </a>
                         </div>
                     </div>
                 </div>

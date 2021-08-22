@@ -6,7 +6,11 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Inertia\Inertia;
 use App\Interfaces\UserRepositoryInterface;
+use App\Models\Account;
+use App\Models\Referral;
+use App\Models\UserReferred;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
@@ -106,6 +110,26 @@ class UserController extends Controller
     {
         User::where('id', $id)->update([
             'status' => 'active'
+        ]);
+
+        $alpha_num = Str::random(6).Str::random(6);
+        $ref_code = strtoupper(str_shuffle($alpha_num));
+        
+        $referral = Referral::create([
+            'user_id' => $id,
+            'ref_code' => $ref_code,
+        ]);
+
+        UserReferred::create([
+            'referral_id' => $referral->id,
+            'user_id' => $id,
+            'count' => 0,
+        ]);
+
+        Account::create([
+            'user_id' => $id,
+            'main_balance' => 0.00,
+            'trading_balance' => 0.00, 
         ]);
 
         return back()->with('success', 'User account has been approved!');

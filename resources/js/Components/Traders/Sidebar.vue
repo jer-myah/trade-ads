@@ -26,7 +26,7 @@
                         <span>Dashboard</span>
                     </a>
                 </li> 
-                <li class="transition ease-out duration-200 transform hover:scale-110">
+                <li v-if="$page.props.auth.user.status == 'active'" class="transition ease-out duration-200 transform hover:scale-110">
                     <a href="/available-links" class="flex items-center space-x-3 text-gray-700 p-2 rounded-md font-medium hover:bg-gray-200 focus:bg-gray-200 focus:shadow-outline">
                         <span class="text-gray-600">
                             <svg class="h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -36,7 +36,7 @@
                         <span>Available Links </span>
                     </a>
                 </li>
-                <li class="transition ease-out duration-200 transform hover:scale-110">
+                <li v-if="$page.props.auth.user.status == 'active'" class="transition ease-out duration-200 transform hover:scale-110">
                     <a href="/tradeable-links" class="flex items-center space-x-3 text-gray-700 p-2 rounded-md font-medium hover:bg-gray-200 focus:bg-gray-200 focus:shadow-outline">
                         <span class="text-gray-600">
                             <svg class="h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -46,7 +46,7 @@
                         <span>Tradeable Links</span>
                     </a>
                 </li>
-                <li class="transition ease-out duration-200 transform hover:scale-110">
+                <li v-if="$page.props.auth.user.status == 'active'" class="transition ease-out duration-200 transform hover:scale-110">
                     <a href="/trading-section" class="flex items-center space-x-3 text-gray-700 p-2 rounded-md font-medium hover:bg-gray-200 focus:bg-gray-200 focus:shadow-outline">
                         <span class=" text-gray-600">
                             <svg class="h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -56,7 +56,7 @@
                         <span>Trading Section</span>
                     </a>
                 </li>
-                <li class="transition ease-out duration-200 transform hover:scale-110">
+                <li v-if="$page.props.auth.user.status == 'active'" class="transition ease-out duration-200 transform hover:scale-110">
                     <a href="/sharable-links" class="flex items-center space-x-3 text-gray-700 p-2 rounded-md font-medium hover:bg-gray-200 focus:bg-gray-200 focus:shadow-outline">
                         <span class=" text-gray-600">
                             <svg class="h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">

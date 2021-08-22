@@ -118,6 +118,7 @@ class LinkController extends Controller
         
         // check if user had made payment for the particular link previously 
         // and also check if the referrals counter is up to 20
+        
         if($user_referred->count < 20 && $payment_count == 1){
             return back()->with('warning', 'Oops!!! You cannot make another payment!');
         }
