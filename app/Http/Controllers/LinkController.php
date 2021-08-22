@@ -111,6 +111,42 @@ class LinkController extends Controller
         $user_referred = UserReferred::where('user_id', Auth::user()->id)->first(); // counter must be greater than 20 for user to repurchase same link again
         $payment_count = PaymentToAdmin::where(['user_id' => Auth::user()->id, 'link_id' => $link->id])->count();
                 
+        if($payment_count == null){
+            // first time payment
+            $user_account = Account::where('user_id', Auth::user()->id)->first(); 
+            
+            if(($user_account->main_balance >= $link->amount) && ($payment_count == 0)) {
+                
+                $payment = new PaymentToAdmin;
+                $payment->user_id = Auth::user()->id;
+                $payment->link_id = $link->id;
+                $payment->amount = $link->amount;
+                
+                $payment->save();
+                
+                $user_account = Account::where('user_id', Auth::user()->id)->first();
+                
+                // generate code/link for voluntary traders
+                $traders_link = new TradersLink;
+                
+                $traders_link->user_id = Auth::user()->id;
+                $traders_link->link_id = $link->id;
+                $traders_link->trader_link = Str::random(16);
+                $traders_link->num_sale = $link->voluntary_sale;
+                $traders_link->unit_sale = $link->voluntary_amount;
+                $traders_link->sale_count = 0;
+
+                $traders_link->save();
+
+                // update the trader's main account balance
+                Account::where('user_id', Auth::user()->id)->decrement('main_balance', $link->amount);
+                
+                return back()->with('success', 'Transaction was successful');
+            } else{
+                return back()->with('warning', 'You may have to wait for another link to be shared.');
+            }   
+        }
+
         // user has never referred any user
         if(UserReferred::where('user_id', Auth::user()->id)->doesntExist() || $payment_count == 1){
             return back()->with('warning', 'Oops!!! You cannot make another payment!');
@@ -162,39 +198,6 @@ class LinkController extends Controller
             
         }
 
-        // first time payment
-        $user_account = Account::where('user_id', Auth::user()->id)->first(); 
-        
-        if(($user_account->main_balance >= $link->amount) && ($payment_count == 0)) {
-            
-            $payment = new PaymentToAdmin;
-            $payment->user_id = Auth::user()->id;
-            $payment->link_id = $link->id;
-            $payment->amount = $link->amount;
-            
-            $payment->save();
-            
-            $user_account = Account::where('user_id', Auth::user()->id)->first();
-            
-            // generate code/link for voluntary traders
-            $traders_link = new TradersLink;
-            
-            $traders_link->user_id = Auth::user()->id;
-            $traders_link->link_id = $link->id;
-            $traders_link->trader_link = Str::random(16);
-            $traders_link->num_sale = $link->voluntary_sale;
-            $traders_link->unit_sale = $link->voluntary_amount;
-            $traders_link->sale_count = 0;
-
-            $traders_link->save();
-
-            // update the trader's main account balance
-            Account::where('user_id', Auth::user()->id)->decrement('main_balance', $link->amount);
-            
-            return back()->with('success', 'Transaction was successful');
-        } else{
-            return back()->with('warning', 'You may have to wait for another link to be shared.');
-        }     
         
     }
 
