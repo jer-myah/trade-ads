@@ -2,7 +2,7 @@
     <Layout>
 
         <teleport to="#modal" v-if="show_purchase">
-            <div class="min-w-screen h-screen animated fadeIn faster  fixed  left-0 top-0 flex justify-center items-center inset-0 z-50 outline-none focus:outline-none"  style="background: rgba(0,0,0,.2);" id="modal-id">
+            <div @click.self="show_purchase = false" class="min-w-screen h-screen animated fadeIn faster  fixed  left-0 top-0 flex justify-center items-center inset-0 z-50 outline-none focus:outline-none"  style="background: rgba(0,0,0,.2);" id="modal-id">
                 <div class="w-full  max-w-lg p-5 relative mx-auto my-auto rounded-xl shadow-lg  bg-white ">
                     <!--content-->
                     <div class="">
@@ -51,11 +51,17 @@
                     </p>
                 </div>
 
-                <div class="flex pt-3 sm:py-3 md:py-0">
+                <div v-if="link.status != 'expired'" class="flex pt-3 sm:py-3 md:py-0">
                     <div><button class="mx-2 focus:outline-none p-2 bg-blue-300 whitespace-nowrap"> {{ (moment.duration((moment(link.created_at).add(link.total_hours, 'h')).diff(moment()))).days() }} d </button></div>
                     <div><button class="focus:outline-none p-2 bg-yellow-300 whitespace-nowrap"> {{ (moment.duration((moment(link.created_at).add(link.total_hours, 'h')).diff(moment()))).hours() }} h</button></div>
                     <div><button class="mx-2 focus:outline-none p-2 bg-green-300 whitespace-nowrap"> {{ (moment.duration((moment(link.created_at).add(link.total_hours, 'h')).diff(moment()))).minutes() }} m</button></div>
                     <div><button class="focus:outline-none p-2 bg-indigo-300 whitespace-nowrap"> {{ countDown.inSeconds }} s</button></div>
+                </div>
+                <div v-else class="flex pt-3 sm:py-3 md:py-0">
+                    <div><button class="mx-2 focus:outline-none p-2 bg-blue-300 whitespace-nowrap"> 0 d </button></div>
+                    <div><button class="focus:outline-none p-2 bg-yellow-300 whitespace-nowrap"> 0 h</button></div>
+                    <div><button class="mx-2 focus:outline-none p-2 bg-green-300 whitespace-nowrap"> 0 m</button></div>
+                    <div><button class="focus:outline-none p-2 bg-indigo-300 whitespace-nowrap"> 0 s</button></div>
                 </div>
 
                 <div class="my-3 md:my-0">
@@ -120,8 +126,11 @@
                                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 font-medium">
                                                 <!-- <button-small @click="amount = trading_link.unit_sale, link = trading_link.link, show_purchase = true">Purchase</button-small> -->
                                                 <!-- <a :href="'/purchase-trader-adslink/'+trading_link.trader_link" @click="amount = trading_link.unit_sale, link = trading_link.link, show_purchase = true"> -->
-                                                    <button-small class="rounded-md" @click="amount = trading_link.unit_sale, _link = trading_link.trader_link, show_purchase = true">
+                                                    <button-small v-if="trading_link.num_sale > trading_link.sale_count" class="rounded-md" @click="amount = trading_link.unit_sale, _link = trading_link.trader_link, show_purchase = true">
                                                         Purchase
+                                                    </button-small>
+                                                    <button-small v-else class="rounded-md" >
+                                                        Completed
                                                     </button-small>
                                                 <!-- </a> -->
                                             </td>

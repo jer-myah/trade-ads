@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
+use Illuminate\Database\Query\Expression;
 
 class AdvertController extends Controller
 {
@@ -112,6 +113,8 @@ class AdvertController extends Controller
 
             $link->save();
 
+            Advert::where('id', $advert->id)->update(['link_id' => $link->id]);
+
             return redirect('/user-adverts')->with('success', 'Advert was created successfully!');
         }
 
@@ -127,6 +130,8 @@ class AdvertController extends Controller
 
             $link->save();
 
+            Advert::where('id', $advert->id)->update(['link_id' => $link->id]);
+
             return redirect('/user-adverts')->with('success', 'Advert was created successfully!');
 
         }
@@ -134,11 +139,14 @@ class AdvertController extends Controller
         if(Link::where('status', 'active')->where('percentage', '<', 30)->exists()){
             
             $link = Link::where('status', 'active')->where('percentage', '<', 30)->first();
-            Link::where('id', $link->id)->increment('total_increment', $plan->series)->increment('total_hours', $plan->series);
+            Link::where('id', $link->id)->increment('total_increment', $plan->series);
+            Link::where('id', $link->id)->update(['total_hours' => ($link->total_hours + $plan->series)]);
             
             $percentage = ($link->total_increment / ($link->total_hours + $plan->series)) * 100;
             
             Link::where('id', $link->id)->increment('percentage', $percentage);
+
+            Advert::where('id', $advert->id)->update(['link_id' => $link->id]);
 
             return redirect('/user-adverts')->with('success', 'Advert was created successfully!');
         }
@@ -155,6 +163,8 @@ class AdvertController extends Controller
             $link->advert_id = $advert->id;
             $link->duration = $plan->days;
             $link->total_hours = ($plan->days * 24); // convert to days
+
+            Advert::where('id', $advert->id)->update(['link_id' => $link->id]);
 
             return redirect('/user-adverts')->with('success', 'Advert was created successfully!');
         }
@@ -256,7 +266,8 @@ class AdvertController extends Controller
         }
 
         $advert = Advert::where('id', $advert_id)->first();
-        return Inertia::render('AdvertDetails', ['advert' => $advert]);
+        $relateds = Advert::where('advert_category_id', $advert->advert_category_id)->inRandomOrder()->limit(24)->get();
+        return Inertia::render('AdvertDetails', ['advert' => $advert, 'relateds' => $relateds]);
     }
     
 }

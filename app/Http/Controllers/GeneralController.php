@@ -23,7 +23,7 @@ class GeneralController extends Controller
      */
     public function index()
     {
-        $adverts = Advert::all(); 
+        $adverts = Advert::where('status', true)->limit(50)->latest()->get(); 
         return Inertia::render('Welcome', [
             'canLogin' => Route::has('login'),
             'canRegister' => Route::has('register'),

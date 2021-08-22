@@ -13,7 +13,7 @@
             </div>
 
             <teleport to="#modal" v-if="show_modal">
-                <div class="min-w-screen h-screen animated fadeIn faster  fixed  left-0 top-0 flex justify-center items-center inset-0 z-50 outline-none focus:outline-none"  style="background: rgba(0,0,0,.2);" id="modal-id">
+                <div @click.self="show_modal = false" class="min-w-screen h-screen animated fadeIn faster  fixed  left-0 top-0 flex justify-center items-center inset-0 z-50 outline-none focus:outline-none"  style="background: rgba(0,0,0,.2);" id="modal-id">
                     <div class="w-full  max-w-lg p-5 relative mx-auto my-auto rounded-xl shadow-lg  bg-white ">
                         <!--content-->
                         <div class="">
@@ -113,10 +113,10 @@
                                             </span>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                            <a :href="'/admin/edit-category/' + cat.id" class="text-green-800 hover:text-green-900  rounded-xl px-3 py-3 bg-green-200">Edit</a>
-                                            <a v-show="!cat.status" :href="'/admin/enable-category/' + cat.id" class="text-green-800 hover:text-green-900 mx-6 rounded-xl px-3 py-3 bg-green-300">Enable</a>
-                                            <a v-show="cat.status" :href="'/admin/disable-category/' + cat.id" class="text-yellow-800 hover:text-yellow-900 mx-6 rounded-xl px-3 py-3 bg-yellow-200">Disable</a>
-                                            <a @click="show_modal = true, url = '/admin/delete-category/'+ cat.id" class="text-red-800 hover:text-red-900 rounded-xl px-3 py-3 bg-red-200 cursor-pointer">Delete</a>
+                                            <a :href="'/admin/edit-category/' + cat.id" class=""><edit-button>Edit</edit-button></a>
+                                            <a v-show="!cat.status" :href="'/admin/enable-category/' + cat.id" class="px-2 sm:px-3"><small-button>Enable</small-button></a>
+                                            <a v-show="cat.status" :href="'/admin/disable-category/' + cat.id" class="px-2 sm:px-3"><small-button>Disable</small-button></a>
+                                            <a @click="show_modal = true, url = '/admin/delete-category/'+ cat.id" class=""><delete-button>Delete</delete-button></a>
                                         </td>
                                     </tr>
 
@@ -139,6 +139,9 @@ import Label from '@/Components/Label'
 import Input from '@/Components/Input'
 import BreezeValidationError from '@/Components/ValidationErrors'
 import TableLite from "vue3-table-lite";
+import EditButton from '@/Components/ButtonEdit';
+import DeleteButton from '@/Components/ButtonDelete.vue';
+import SmallButton from '@/Components/ButtonSmall.vue'
 
 export default {
     components: {
@@ -146,7 +149,10 @@ export default {
         Label,
         Input,
         BreezeValidationError,
-        TableLite
+        TableLite,
+        EditButton,
+        DeleteButton,
+        SmallButton,
     },
     props: {
         categories: Object,

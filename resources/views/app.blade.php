@@ -12,6 +12,8 @@
 
         <!-- Styles -->
         <link rel="stylesheet" href="{{ mix('css/app.css') }}">
+        
+        <script type='text/javascript' src='https://platform-api.sharethis.com/js/sharethis.js#property=612245bd0596560012d381aa&product=sop' async='async'></script>
 
         <!-- Scripts -->
         @routes

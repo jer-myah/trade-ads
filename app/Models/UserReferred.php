@@ -10,4 +10,10 @@ use App\Traits\Uuids;
 class UserReferred extends Model
 {
     use HasFactory, Uuids, SoftDeletes;
+
+    protected $fillable = [
+        'user_id',
+        'referral_id',
+        'count'
+    ];
 }

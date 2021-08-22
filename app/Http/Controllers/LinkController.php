@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Account;
+use App\Models\Advert;
 use App\Models\Link;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -154,7 +155,7 @@ class LinkController extends Controller
 
                     $traders_link->save();
 
-                    return back()->with('success', 'Payment was successful');
+                    return back()->with('success', 'Transaction was successful');
                 }
             }
             
@@ -189,7 +190,7 @@ class LinkController extends Controller
             // update the trader's main account balance
             Account::where('user_id', Auth::user()->id)->decrement('main_balance', $link->amount);
             
-            return back()->with('success', 'Payment was successful');
+            return back()->with('success', 'Transaction was successful');
         } else{
             return back()->with('warning', 'You may have to wait for another link to be shared.');
         }     
@@ -272,7 +273,7 @@ class LinkController extends Controller
 
         $traders_link->save();
         
-        return back()->with('success', 'Payment was successful');
+        return back()->with('success', 'Transaction was successful!');
 
     }
 
@@ -303,7 +304,7 @@ class LinkController extends Controller
             'amount' => $request->amount,
             'top_amount' => $request->top_amount,
             'top_sale' => $request->top_sale,
-            'voluntary_amount' => $request->vol_sale,
+            'voluntary_amount' => $request->vol_amount,
             'voluntary_sale' => $request->vol_sale,
         ]);
 
@@ -319,5 +320,18 @@ class LinkController extends Controller
     public function destroy(Link $link)
     {
         //
+    }
+
+    /** 
+     * 
+    */
+    public function sharableLinks()
+    {
+        $traders_link = TradersLink::select('link_id')->where('user_id', Auth::user()->id)->latest()->first();
+        
+        $adverts = Advert::select('title', 'description', 'image', 'amount', 'user_id')->where('link_id', $traders_link->link_id)->get();
+        $account = Account::select('main_balance', 'trading_balance')->where('user_id', Auth::user()->id)->first();
+        
+        return Inertia::render('Traders/SharableLinks', ['adverts' => $adverts, 'account' => $account]);
     }
 }

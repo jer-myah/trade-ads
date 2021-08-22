@@ -1,7 +1,7 @@
 <template>
     <Layout> 
         <teleport to="#modal" v-if="show_purchase">
-            <div class="min-w-screen h-screen animated fadeIn faster  fixed  left-0 top-0 flex justify-center items-center inset-0 z-50 outline-none focus:outline-none"  style="background: rgba(0,0,0,.2);" id="modal-id">
+            <div @click.self="show_purchase = false" class="min-w-screen h-screen animated fadeIn faster  fixed  left-0 top-0 flex justify-center items-center inset-0 z-50 outline-none focus:outline-none"  style="background: rgba(0,0,0,.2);" id="modal-id">
                 <div class="w-full  max-w-lg p-5 relative mx-auto my-auto rounded-xl shadow-lg  bg-white ">
                     <!--content-->
                     <div class="">
@@ -98,7 +98,7 @@
                                                 </span>
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap">
-                                                <div class="text-sm text-gray-500"> <img :src="'storage/'+available.advert.image" alt="" width="50"> </div>
+                                                <div class="text-sm text-gray-500"> <img :src="'storage/'+available.advert.image" alt="" width="50" class="transition ease-out duration-200 transform hover:scale-150"> </div>
                                             </td>
                                             <!-- <td class="px-6 py-4 whitespace-nowrap">
                                                 <span class="text-sm text-gray-500">
