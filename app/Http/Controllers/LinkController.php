@@ -110,12 +110,9 @@ class LinkController extends Controller
         
         $user_referred = UserReferred::where('user_id', Auth::user()->id)->first(); // counter must be greater than 20 for user to repurchase same link again
         $payment_count = PaymentToAdmin::where(['user_id' => Auth::user()->id, 'link_id' => $link->id])->count();
-        if($payment_count == null){
-            $payment_count = 0;
-        }
-        
+                
         // user has never referred any user
-        if(UserReferred::where('user_id', Auth::user()->id)->doesntExist() && $payment_count == 1){
+        if(UserReferred::where('user_id', Auth::user()->id)->doesntExist() || $payment_count == 1){
             return back()->with('warning', 'Oops!!! You cannot make another payment!');
         }
         
