@@ -143,7 +143,43 @@
                             User Contact
                         </dt>
                         <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                            {{ advert.phone }}
+                            {{ advert.phone_num }}
+                        </dd>
+                    </div> 
+                    <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                        <dt class="text-sm font-medium text-gray-500">
+                            Date Created
+                        </dt>
+                        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                            {{ moment(advert.created_at).format('DD, MMM YYYY') }}
+                        </dd>
+                    </div> 
+                    <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                        <dt class="text-sm font-medium text-gray-500">
+                            Expiry Date
+                        </dt>
+                        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                            {{ (moment(advert.created_at).add(advert.link.duration, 'd')).format('DD, MMM YYYY') }}
+                        </dd>
+                    </div> 
+                    <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                        <dt class="text-sm font-medium text-gray-500">
+                            Advert Status
+                        </dt>
+                        <dd v-if="advert.status == 1" class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                            Active
+                        </dd>
+                        <dd v-else class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                            Inactive
+                        </dd>
+                    </div> 
+                    
+                    <div v-if="moment.now() > moment(advert.created_at).add(advert.link.duration, 'd')" class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                        <dt class="text-sm font-medium text-gray-500">
+                            Action
+                        </dt>
+                        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                            <a :href="'/admin/deactivate-advert/' + advert.id" class="text-white mx-2"><edit-button>Deactive</edit-button></a>
                         </dd>
                     </div> 
                 </dl>
@@ -160,6 +196,7 @@ import BreezeButton from '@/Components/Button'
 import EditButton from '@/Components/ButtonEdit'
 import BreezeInput from '@/Components/Input'
 import BreezeLabel from '@/Components/Label'
+import moment from 'moment'
 
 export default {
     components: {
@@ -176,7 +213,8 @@ export default {
     },
     data() {
         return {
-            toast: true
+            toast: true,
+            moment: moment
         }
     },
     

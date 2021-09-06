@@ -28,7 +28,7 @@
 
             <!-- login -->
             <div class="flex-initial">
-                <div class="flex justify-end items-center relative">
+                <div class="hidden sm:flex justify-end items-center relative">
                 
                     <div class="flex mr-4 items-center">
                         <div v-if="show_trader" class="inline-block mr-4">
@@ -55,9 +55,25 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="block sm:hidden">
+                    <span @click="showMobileMenu = !showMobileMenu" class="text-brown-300 cursor-pointer">Menu</span>
+                </div>
             </div>
             <!-- end login -->
         </nav>
+
+        <div v-if="showMobileMenu" class="sm:hidden w-full text-center bg-white transition ease-out duration-200">
+            <div class="bg-white transition w-full py-3">
+                <a href="/how-it-works" class="text-gray-600 focus:outline-none"> How It Works </a>
+            </div> 
+            <div class="bg-white transition w-full py-3">
+                <a href="/login" class="text-gray-600 focus:outline-none"> Login </a>
+            </div>
+            <div class="bg-white transition w-full py-3">
+                <a href="/register" class="text-gray-600 focus:outline-none"> Register </a>
+            </div>
+        </div>
 
         <div class="border"></div>
 
@@ -209,6 +225,7 @@
             return {
                 show_modal: false,
                 show_trader: false,
+                showMobileMenu: false,
             }
         }
     }

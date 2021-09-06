@@ -2,8 +2,12 @@
     <layout>
         <main class="my-8">
             <div class="container mx-auto px-6">
-                <h3 class="text-gray-700 text-2xl font-medium">Wrist Watch</h3>
-                <span class="mt-3 text-sm text-gray-500">200+ Products</span>
+                <h3 class="text-gray-700 text-2xl font-medium pb-2">Category</h3>
+                <select v-model="selected" class="min-w-max border-green-300 focus:border-green-400 " name="" id="">
+                    <option value="All">All</option>
+                    <option v-for="cat in cats" :key="cat.id" value="">{{ cat.name }}</option>
+                </select>
+                <span @click="category" class="mt-3 ml-2 p-3 shadow-md rounded-md cursor-pointer text-sm text-gray-500">Search</span>
                 <div class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mt-6">
                     <div v-for="advert in adverts" :key="advert.id" class="w-full max-w-sm mx-auto rounded-md shadow-md overflow-hidden">
                         <div class="flex items-end justify-end h-56 w-full bg-cover" :style="{backgroundImage:`url(/storage/${advert.image})`}">
@@ -58,18 +62,25 @@ import InertiaLink from '@/Components/NavLink'
             errors: Object,
             laravelVersion: String,
             phpVersion: String,
-            adverts: Object
+            adverts: Object,
+            cats: Object
         },
 
         data () {
             return {
-                advert_id: ''
+                advert_id: '',
+                selected: ''
             }
         },
 
         methods: {
             showDetails() {
                 this.$inertia.get('/advert-details/'+this.advert_id)
+            },
+
+            category() {
+                this.adverts = this.adverts.filter(item => item.advertCategory.name = this.seleted)
+                return this.adverts
             }
         }
 

@@ -21,8 +21,10 @@ class UserSeeder extends Seeder
             'first_name' => 'Admin',
             'last_name' => 'Admin',
             'email' => 'admin@trade-ads.com',
+            'country' => 'Nigeria',
             'role' => 'administrator',
             'status' => 'active',
+            'ip_address' => '127.0.0.1',
             'email_verified_at' => Carbon::now(),
             'password' => Hash::make('admin-trade-ads'),
         ]);

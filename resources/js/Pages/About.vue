@@ -1,4 +1,90 @@
 <template>
+    <div v-if="$page.props.flash.success && toast" class="cursor-pointer px-5 py-2 shadow-lg rounded bg-green-200 text-gray-600 absolute z-50 top-8 right-0 transition duration-500 ease-out focus:opacity-0" >                
+        {{ $page.props.flash.success }}
+        <button @click="toast=false" class="p-3 focus:outline-none text-lg">x</button>
+    </div>
+    <div v-if="$page.props.flash.warning && toast" class="cursor-pointer px-5 py-2 shadow-lg rounded bg-yellow-200 text-gray-600 absolute z-50 top-8 right-0 transition duration-500 ease-out focus:opacity-0" >                
+        {{ $page.props.flash.warning }}
+        <button @click="toast=false" class="p-3 focus:outline-none text-lg">x</button>
+    </div>
+    
+    <teleport to="#modal" v-if="show_modal">
+        <div @click.self="show_modal = false" class="fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+            <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+                <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+                <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+
+                <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+                    <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                        <div class="">                            
+                            <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                                <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">
+                                    <div class="flex justify-between"> 
+                                        <div class="">Trader Registration </div>
+                                        <!-- <div  class="p-2 cursor-pointer border border-gray-100 text-red-600">X</div> -->
+                                        <svg @click="show_modal = false" class="w-6 h-6 cursor-pointer hover:text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                                    </div>
+                                </h3>
+                                <div class="mt-2">                                    
+                                    <form @submit.prevent="registerTrader" class="w-full mt-8 space-y-6" action="#" method="POST">
+                                        <!-- <input type="hidden" name="remember" value="true"> -->
+                                        <div class="rounded-md shadow-sm">
+                                            <div>
+                                                <label for="first_name" class="sr-only">First Name</label>
+                                                <input id="first_name" type="text" v-model="form.first_name" autocomplete="first_name" required class="appearance-none rounded-none relative block w-full px-3 py-3 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-green-500 focus:border-green-500 focus:z-10 sm:text-sm" placeholder="First Name">
+                                            </div>
+
+                                            <div class="mt-5">
+                                                <label for="last_name" class="sr-only">Last Name</label>
+                                                <input id="last_name" type="text" v-model="form.last_name" autocomplete="last_name" required class="appearance-none rounded-none relative block w-full px-3 py-3 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-green-500 focus:border-green-500 focus:z-10 sm:text-sm" placeholder="Last Name">
+                                            </div>
+                                            
+                                            <div class="mt-5">
+                                                <label for="email-address" class="sr-only">Email</label>
+                                                <input id="email-address" v-model="form.email" type="email" autocomplete="email" required class="appearance-none rounded-none relative block w-full px-3 py-3 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-green-500 focus:border-green-500 focus:z-10 sm:text-sm" placeholder="Email address">
+                                            </div>
+                                            
+                                            <div class="mt-5">
+                                                <breeze-label for="country" value="Country" />
+                                                <select v-model="form.country" required class="mt-1 block w-full text-gray-600 border-gray-300 focus:border-green-300 focus:ring focus:ring-green-200 focus:ring-opacity-50 rounded-md shadow-sm py-3">
+                                                    <option value="" disabled>Select Country</option>
+                                                    <option :value="country" v-for="country in countries" :key="country.id" class="">{{ country }}</option>
+                                                </select>
+                                            </div>
+
+                                            <div class="mt-5">
+                                                <label for="password" class="sr-only">Password</label>
+                                                <input id="password" v-model="form.password" type="password" autocomplete="password" required class="appearance-none rounded-none relative block w-full px-3 py-3 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-green-500 focus:border-green-500 focus:z-10 sm:text-sm" placeholder="Password">
+                                            </div>
+
+                                            <div class="mt-5">
+                                                <label for="password_confirmation" class="sr-only">Confirm Password</label>
+                                                <input id="password_confirmation" v-model="form.password_confirmation" type="password" autocomplete="password_confirmation" required class="appearance-none rounded-none relative block w-full px-3 py-3 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-green-500 focus:border-green-500 focus:z-10 sm:text-sm" placeholder="Confirm Password">
+                                            </div>
+
+                                            <div class="mt-5">
+                                                <label for="ref_code" class="sr-only">Referral Code</label>
+                                                <input id="ref_code" v-model="form.ref_code" type="text" class="appearance-none rounded-none relative block w-full px-3 py-3 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-green-500 focus:border-green-500 focus:z-10 sm:text-sm" placeholder="Referral Code">
+                                            </div>
+                                            
+                                        </div>
+
+                                        <div>
+                                            <breeze-button type="submit" class="">
+                                                Register
+                                            </breeze-button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </teleport>
+
+    
     <layout>
 
         <div class="w-11/12 mx-auto sm:w-10/12 md:w-8/12 pt-8">
@@ -115,68 +201,6 @@
             </div>
         </section>
     </layout>
-
-    <teleport to="#modal" v-if="show_modal">
-        <div @click.self="show_modal = false" class="fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
-            <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-                <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
-                <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
-
-                <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
-                    <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                        <div class="">
-                            
-                            <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
-                                <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">
-                                    <div class="flex justify-between"> 
-                                        <div class="">Trader Registration </div>
-                                        <!-- <div  class="p-2 cursor-pointer border border-gray-100 text-red-600">X</div> -->
-                                        <svg @click="show_modal = !show_modal" class="w-6 h-6 cursor-pointer hover:text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-                                    </div>
-                                </h3>
-                                <div class="mt-2">                                    
-                                    <form @submit.prevent="registerTrader" class="w-full mt-8 space-y-6" action="#" method="POST">
-                                        <!-- <input type="hidden" name="remember" value="true"> -->
-                                        <div class="rounded-md shadow-sm">
-                                            <div>
-                                                <label for="first_name" class="sr-only">First Name</label>
-                                                <input id="first_name" type="text" v-model="form.first_name" autocomplete="first_name" required class="appearance-none rounded-none relative block w-full px-3 py-3 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-green-500 focus:border-green-500 focus:z-10 sm:text-sm" placeholder="First Name">
-                                            </div>
-
-                                            <div class="mt-5">
-                                                <label for="last_name" class="sr-only">Last Name</label>
-                                                <input id="last_name" type="text" v-model="form.last_name" autocomplete="last_name" required class="appearance-none rounded-none relative block w-full px-3 py-3 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-green-500 focus:border-green-500 focus:z-10 sm:text-sm" placeholder="Last Name">
-                                            </div>
-                                            
-                                            <div class="mt-5">
-                                                <label for="email-address" class="sr-only">Email</label>
-                                                <input id="email-address" v-model="form.email" type="email" autocomplete="email" required class="appearance-none rounded-none relative block w-full px-3 py-3 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-green-500 focus:border-green-500 focus:z-10 sm:text-sm" placeholder="Email address">
-                                            </div>
-                                            <div class="mt-5">
-                                                <label for="password" class="sr-only">Password</label>
-                                                <input id="password" v-model="form.password" type="password" autocomplete="password" required class="appearance-none rounded-none relative block w-full px-3 py-3 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-green-500 focus:border-green-500 focus:z-10 sm:text-sm" placeholder="Password">
-                                            </div>
-                                            <div class="mt-5">
-                                                <label for="confirm_password" class="sr-only">Confirm Password</label>
-                                                <input id="confirm_password" v-model="form.confirm_password" type="password" autocomplete="confirm_password" required class="appearance-none rounded-none relative block w-full px-3 py-3 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-green-500 focus:border-green-500 focus:z-10 sm:text-sm" placeholder="Confirm Password">
-                                            </div>
-                                            
-                                        </div>
-
-                                        <div>
-                                            <breeze-button type="submit" class="">
-                                                Register
-                                            </breeze-button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </teleport>
 </template>
 
 <script>
@@ -192,25 +216,29 @@ export default {
     props: {
         auth: Object,
         errors: Object,
+        countries: Array,
     },
 
     data() {
         return {
+            toast: true,
             show_modal: false,
             form: this.$inertia.form({
                 first_name: '',
                 last_name: '',
                 email: '',
                 password: '',
-                confirm_password: '',
+                password_confirmation: '',
                 role: 'voluntary-trader',
-                status: 'in-active'
+                status: 'in-active',
+                country: '',
+                ref_code: ''
             })
         }
     },
     methods: {
         registerTrader () {
-            if(this.form.password !== this.form.confirm_password){
+            if(this.form.password !== this.form.password_confirmation){
                 Swal.fire('Error', 'Password mismatch', 'error')
             }else{ 
                 this.$inertia.post('/create-trader', this.form)

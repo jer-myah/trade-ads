@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreAdvertRequest;
 use App\Models\Advert;
 use App\Models\Account;
 use App\Models\AdvertPackage;
@@ -51,47 +52,41 @@ class AdvertController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreAdvertRequest $request)
     { 
-        $plan = AdvertPackage::where('id', $request->package_id)->first();
+        $input = $request->validated();
+
+        $plan = AdvertPackage::where('id', $input['package_id'])->first();
         
         $account = Account::where('user_id', Auth::user()->id)->first();
         
         if($account->main_balance < $plan->amount){
             return back()->with('warning', 'You do not have sufficient fund to perform this operation!');
-        }
+        }        
         
-        $request->validate([
-            'title' => 'required|filled|unique:adverts|string|max:128',
-            'description' => 'required|max:512',
-            'image' => 'required|image|mimes:png,jpg,jpeg|max:5220',
-            'video' => 'nullable|mimetypes:video/mpeg',
-            'phone_num' => 'required|max:20'
-        ]);
-
-        if($request->hasFile('image')){
+        if($input['image']){
             $image = $request->file('image')->store('adverts_images', 'public');
         }
 
         // $user_id = Auth::user()->id;
 
         $advert = new Advert();
-        $advert->advert_package_id = $request->package_id;
-        $advert->advert_category_id = $request->selected;
-        $advert->title = $request->title;
-        $advert->description = $request->description;
+        $advert->advert_package_id = $input['package_id'];
+        $advert->advert_category_id = $input['selected'];
+        $advert->title = $input['title'];
+        $advert->description = $input['description'];
         $advert->amount = $plan->amount;
         $advert->image = $image;
-        $advert->phone_num = $request->phone_num;
+        $advert->phone_num = $input['phone_num'];
         $advert->user_id = Auth::user()->id;
         
-        try{
+        try {
             $advert->save();
-        }catch (\Exception $exception){
+            Account::where('user_id', Auth::user()->id)->decrement('main_balance', $plan->amount);
+
+        } catch (\Exception $exception){
             return back()->with('warning', $exception->getMessage());
         }
-
-        Account::where('user_id', Auth::user()->id)->decrement('main_balance', $plan->amount);
 
         if($request->hasFile('video')){
             $video = $request->file('video')->store('adverts_videos', 'public');
@@ -136,6 +131,7 @@ class AdvertController extends Controller
 
         }
 
+        // add series to active link
         if(Link::where('status', 'active')->where('percentage', '<', 30)->exists()){
             
             $link = Link::where('status', 'active')->where('percentage', '<', 30)->first();
@@ -144,13 +140,15 @@ class AdvertController extends Controller
             
             $percentage = ($link->total_increment / ($link->total_hours + $plan->series)) * 100;
             
-            Link::where('id', $link->id)->increment('percentage', $percentage);
+            Link::where('id', $link->id)->update(['percentage' => ($link->percentage + $percentage)]);
+            // Link::where('id', $link->id)->increment('percentage', $percentage);
 
             Advert::where('id', $advert->id)->update(['link_id' => $link->id]);
 
             return redirect('/user-adverts')->with('success', 'Advert was created successfully!');
         }
 
+        // deactivate previous link and create nw one if percentage increase is more than 30
         if(Link::where('status', 'active')->where('percentage', '>', 30)){
             
             Link::where('status', 'active')->where('percentage', '>', 30)->update([
@@ -182,7 +180,7 @@ class AdvertController extends Controller
             return back()->with('warning', 'There seems to be an error with this request!');
         }
 
-        $advert = Advert::where('id', $id)->with('advertPackage', 'advertCategory')->first();
+        $advert = Advert::where('id', $id)->with('advertPackage', 'advertCategory', 'link')->first();
         $plan = $advert->advertPackage->name;
         $cat = $advert->advertCategory->name;
         return Inertia::render('Admin/Adverts/Show', ['advert' => $advert, 'plan' => $plan, 'cat' => $cat]);
@@ -268,6 +266,19 @@ class AdvertController extends Controller
         $advert = Advert::where('id', $advert_id)->first();
         $relateds = Advert::where('advert_category_id', $advert->advert_category_id)->inRandomOrder()->limit(24)->get();
         return Inertia::render('AdvertDetails', ['advert' => $advert, 'relateds' => $relateds]);
+    }
+
+    public function deactivate($id)
+    {
+        if(Advert::where('id', $id)->doesntExist()){
+            return back()->with('warning', 'Bad Request!');
+        }
+
+        Advert::where('id', $id)->update([
+            'status' => 0
+        ]);
+
+        return back()->with('success', 'Advert has been deactivated successfully!');
     }
     
 }

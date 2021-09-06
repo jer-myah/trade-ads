@@ -8,10 +8,7 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::group(['middleware' => ['auth', 'verified', 'isadmin']], function () {
-    Route::get('/admin-dashboard', function () {
-        $total_users = User::where('role', '!=', 'administrator')->count();
-        return Inertia::render('Admin/Dashboard', ['total_users' => $total_users]);
-    })->name('admin-dashboard');
+    Route::get('/admin-dashboard', [App\Http\Controllers\DashboardController::class, 'adminDashboard'])->name('admin-dashboard');
 
     Route::get('/admin/view-users', [App\Http\Controllers\UserController::class, 'index']);
     Route::get('/admin/view/user-details/{id}', [App\Http\Controllers\UserController::class, 'show']);
@@ -42,6 +39,7 @@ Route::group(['middleware' => ['auth', 'verified', 'isadmin']], function () {
 
     Route::get('/admin/view-adverts', [App\Http\Controllers\AdvertController::class, 'index']);
     Route::get('/admin/show-advert/{id}', [App\Http\Controllers\AdvertController::class, 'show']);
+    Route::get('/admin/deactivate-advert/{id}', [App\Http\Controllers\AdvertController::class, 'deactivate']);
     Route::get('/admin/approve-advert/{id}', [App\Http\Controllers\AdvertController::class, 'approveAdvert']);
     Route::get('/admin/delete-advert/{id}', [App\Http\Controllers\AdvertController::class, 'deleteAdvert']);
 

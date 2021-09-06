@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 use App\Models\User;
+use App\Traits\Values;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,7 +21,8 @@ use App\Models\User;
 Route::get('/', [App\Http\Controllers\GeneralController::class, 'index']);
 
 Route::get('/how-it-works', function () {
-    return Inertia::render('About');
+    $countries = Values::COUNTRIES;
+    return Inertia::render('About', ['countries' => $countries]);
 });
 Route::post('/create-trader', [App\Http\Controllers\GeneralController::class, 'store']);
 // Route::get('/thank', function () { return Inertia::render('ThankYou'); });

@@ -112,7 +112,7 @@
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                             <a :href="'/admin/show-advert/' + advert.id" class="text-white ml-2"><breeze-button class="p-2">Show</breeze-button></a>
-                                            <a :href="'/admin/edit-advert/' + advert.id" class="text-white mx-2"><button-edit>Edit</button-edit></a>
+                                            <a :href="'/admin/deactivate-advert/' + advert.id" class="text-white mx-2"><button-edit>Deactive</button-edit></a>
                                             <!-- <a v-show="!advert.status" :href="'/admin/enable-advert/' + advert.id" class="text-green-800 hover:text-green-900 mx-2 rounded px-2 py-2 bg-green-300">Enable</a>
                                             <a v-show="advert.status" :href="'/admin/disable-advert/' + advert.id" class="text-yellow-800 hover:text-yellow-900 mx-2 rounded px-2 py-2 bg-yellow-200">Disable</a> -->
                                             <a @click="show_modal = true, url = '/admin/delete-advert/'+ advert.id" class=""><button-delete> Delete </button-delete></a>

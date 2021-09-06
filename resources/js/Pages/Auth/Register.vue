@@ -1,4 +1,13 @@
 <template>
+    <div v-if="$page.props.flash.success && toast" class="cursor-pointer px-5 py-2 shadow-lg rounded bg-green-200 text-gray-600 absolute top-8 right-0 transition duration-500 ease-out focus:opacity-0" >                
+        {{ $page.props.flash.success }}
+        <button @click="toast=false" class="p-3 focus:outline-none text-lg">x</button>
+    </div>
+    <div v-if="$page.props.flash.warning && toast" class="cursor-pointer px-5 py-2 shadow-lg rounded bg-yellow-200 text-gray-600 absolute top-8 right-0 transition duration-500 ease-out focus:opacity-0" >                
+        {{ $page.props.flash.warning }}
+        <button @click="toast=false" class="p-3 focus:outline-none text-lg">x</button>
+    </div>
+
     <bg-img>
         <breeze-validation-errors class="p-4 absolute top-4 right-0 bg-white transition ease-in-out duration-150" />
 
@@ -19,7 +28,15 @@
 
                 <div class="mt-4">
                     <breeze-label for="email" value="Email" />
-                    <breeze-input id="email" type="email" class="mt-1 block w-full text-gray-600" v-model="form.email" required autocomplete="username" />
+                    <breeze-input id="email" type="email" class="mt-1 block w-full text-gray-600" v-model="form.email" required autocomplete="email" />
+                </div>
+
+                <div class="mt-4">
+                    <breeze-label for="country" value="Country" />
+                    <select v-model="form.country" required class="mt-1 block w-full text-gray-600 border-gray-300 focus:border-green-300 focus:ring focus:ring-green-200 focus:ring-opacity-50 rounded-md shadow-sm py-3">
+                        <option value="" disabled>Select Country</option>
+                        <option :value="country" v-for="country in countries" :key="country.id" class="">{{ country }}</option>
+                    </select>
                 </div>
 
                 <div class="mt-4">
@@ -30,6 +47,11 @@
                 <div class="mt-4">
                     <breeze-label for="password_confirmation" value="Confirm Password" />
                     <breeze-input id="password_confirmation" type="password" class="mt-1 block w-full text-gray-600" v-model="form.password_confirmation" required autocomplete="new-password" />
+                </div>
+
+                <div class="mt-4">
+                    <breeze-label for="ref_code" value="Refferal Code" />
+                    <breeze-input id="ref_code" type="text" class="mt-1 block w-full text-gray-600" v-model="form.ref_code" placeholder="Optional Refferal Code"/>
                 </div>
 
                 <div class="flex items-center justify-end mt-4">
@@ -68,25 +90,29 @@
         props: {
             auth: Object,
             errors: Object,
+            countries: Array,
         },
 
         data() {
             return {
+                toast: true,
                 form: this.$inertia.form({
                     first_name: '',
                     last_name: '',
                     email: '',
+                    country: '',
                     password: '',
                     password_confirmation: '',
                     role: 'user',
                     terms: false,
+                    ref_code: ''
                 })
             }
         },
 
         methods: {
             submit() {
-                this.form.post(this.route('register'), {
+                this.form.post(this.route('register'), {                    
                     onFinish: () => this.form.reset('password', 'password_confirmation'),
                 })
             }

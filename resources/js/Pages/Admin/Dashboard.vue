@@ -21,19 +21,19 @@
                     <div class="p-5 bg-red-100 rounded shadow-sm">
                         <div class="flex flex-col items-center pt-1">
                             <div class="text-base text-gray-400 ">Total Traders</div>
-                            <div class="text-2xl font-bold text-gray-600 ">752</div>                            
+                            <div class="text-2xl font-bold text-gray-600 ">{{ total_traders }}</div>                            
                         </div>
                     </div>
                     <div class="p-5 bg-pink-100 rounded shadow-sm">                        
                         <div class="flex flex-col items-center pt-1">
                             <div class="text-base text-gray-400 ">Total Adverts</div>
-                            <div class="text-2xl font-bold text-gray-600 ">1375</div>                            
+                            <div class="text-2xl font-bold text-gray-600 ">{{ total_ads }}</div>                            
                         </div>
                     </div>
                     <div class="p-5 bg-indigo-100 rounded shadow-sm">
                         <div class="flex flex-col items-center pt-1">
                             <div class="text-base text-gray-400 ">Total Links</div>
-                            <div class="text-2xl font-bold text-gray-600 ">1375</div>                            
+                            <div class="text-2xl font-bold text-gray-600 ">{{ total_links }}</div>                            
                         </div>
                     </div>
                 </div>
@@ -53,7 +53,10 @@
         props: {
             auth: Object,
             errors: Object,
-            total_users: Number
+            total_users: Number,
+            total_traders: Number,
+            total_ads: Number,
+            total_links: Number,
         },
     }
 </script>

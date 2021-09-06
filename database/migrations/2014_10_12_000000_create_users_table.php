@@ -18,11 +18,13 @@ class CreateUsersTable extends Migration
             $table->string('first_name');
             $table->string('last_name');
             $table->string('email')->unique();
+            $table->string('country');
             $table->enum('role', ['administrator', 'user', 'top-trader', 'voluntary-trader'])->default('user');
             $table->enum('status', ['active', 'in-active'])->default('active');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('avatar')->nullable();
+            $table->string('ip_address')->unique();
             $table->rememberToken();
             $table->softDeletes();
             $table->timestamps();
