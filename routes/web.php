@@ -18,10 +18,11 @@ use App\Traits\Values;
 |
 */
 
+
 Route::get('/', [App\Http\Controllers\GeneralController::class, 'index']);
 
 Route::get('/how-it-works', function () {
-    $countries = Values::COUNTRIES;
+    $countries = Values::COUNTRIES; 
     return Inertia::render('About', ['countries' => $countries]);
 });
 Route::post('/create-trader', [App\Http\Controllers\GeneralController::class, 'store']);
