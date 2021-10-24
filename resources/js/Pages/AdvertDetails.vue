@@ -45,7 +45,7 @@
                         <img v-if="advert.image" @click="alt_1 = false, alt_2 = false, video = false, main = true" class="h-32 w-64 rounded-md object-cover max-w-lg mx-auto cursor-pointer" :src="'/storage/'+advert.image" alt="">                    
                         <img v-if="advert.image_1" @click="main = false, alt_2 = false, video = false, alt_1 = true" class="h-32 w-64 rounded-md object-cover max-w-lg mx-auto cursor-pointer" :src="'/storage/'+advert.image_1" alt="">                    
                         <img v-if="advert.image_2" @click="alt_1 = false, main = false, video = false, alt_2 = true" class="h-32 w-64 rounded-md object-cover max-w-lg mx-auto cursor-pointer" :src="'/storage/'+advert.image_2" alt="">                    
-                        <video v-if="advert.video" @click="alt_1 = false, main = false, alt_2 = false, video = true" class="h-32 w-64 rounded-md object-cover max-w-lg mx-auto cursor-pointer" :src="'/storage/'+advert.video" alt="">
+                        <video controls v-if="advert.video" @click="alt_1 = false, main = false, alt_2 = false, video = true" class="h-32 w-64 rounded-md object-cover max-w-lg mx-auto cursor-pointer" :src="'/storage/'+advert.video" alt="">
                             <source :src="'/storage/'+advert.video" type="video/mp4">
                         </video>                  
                     </div>
