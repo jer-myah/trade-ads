@@ -58,7 +58,7 @@
                 </div>
             </div>
         </div>
-    </teleport>
+    </teleport> 
 
     <Layout>
         <div v-if="$page.props.flash.success && toast" class="cursor-pointer px-5 py-2 shadow-lg rounded bg-green-200 text-gray-600 absolute top-8 right-0 transition duration-500 ease-out focus:opacity-0" >                
