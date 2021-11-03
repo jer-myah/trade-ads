@@ -164,7 +164,6 @@
                                 <div class="mb-8 flex justify-between items-center w-full right-timeline">
                                     <div class="order-1 w-5/12"></div>
                                     <div class="order-1  w-5/12 px-1 py-4">
-                                        <!-- <p class="mb-3 text-base text-gray-600">12 May, 2021</p> -->
                                         <h4 class="mb-3 font-bold  text-md md:text-base text-gray-600 text-left capitalize">What is double trading</h4>
                                         <p class="text-sm md:text-base leading-snug text-gray-500 text-opacity-100">
                                             It enables you to trade more than once per link, after your minimum earning on your previous ads link, It only works if each twenty referrals made are active on a trade with you.
@@ -175,7 +174,6 @@
                                 <div class="mb-8 flex justify-between flex-row-reverse items-center w-full left-timeline">
                                     <div class="order-1 w-5/12"></div>
                                     <div class="order-1 w-5/12 px-1 py-4 text-right">
-                                        <!-- <p class="mb-3 text-base text-gray-600"> 10 May, 2021</p> -->
                                         <h4 class="mb-3 font-bold text-md md:text-base text-gray-600 capitalize">How links works</h4>
                                         <p class="text-sm md:text-base leading-snug text-gray-500 text-opacity-100">
                                             Every link has expired time, and can accommodate a setting numbers of adverts that falls within range of being active, expiration increases when new ads comes in and it varies by it's packages in series
